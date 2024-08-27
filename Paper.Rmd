@@ -597,18 +597,17 @@ U ovom dijelu analize prikazani su rezultati testova dohodovne konvergencije izm
 
 
 ```{r ljbx,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
-# Function to compute Ljung-Box test p-values for every second lag
 compute_ljung_box_every_second_lag <- function(data, max_lag = 20) {
   results <- list()
   for (lag in seq(2, max_lag, by = 2)) {  # Loop through every second lag
-    p_value <- Box.test(data$diff_log_gdp_per_capita, lag = lag, type = "Ljung-Box")$statistic
+    p_value <- Box.test(data$diff_log_gdp_per_capita, lag = lag, type = "Ljung-Box")$p.value
     results[[lag]] <- tibble(lag = lag, p_value = p_value)
   }
   bind_rows(results) %>% mutate(group = data$group[1])
 }
 
 # Apply the function to the data
-ljung_box_results_second_lags <- data %>%
+ljung_box_results_second_lags <- diff_croatia_vs_groups %>%
   group_by(group) %>%
   do(compute_ljung_box_every_second_lag(., max_lag = 20)) %>%
   ungroup()
@@ -620,6 +619,32 @@ ljung_box_table_second_lags <- ljung_box_results_second_lags %>%
 
 # Display the results as a table
 print(ljung_box_table_second_lags)
+
+# Create a nice table visualization using gt
+ljung_box_gt_second_lags <- ljung_box_table_second_lags %>%
+  gt() %>%
+  tab_header(
+    title = "Ljung-Box Test P-values for Every Second Lag",
+    subtitle = "P-values for every second lag up to 20 for each group"
+  ) %>%
+  cols_label(
+    group = "Group",
+    lag_2 = "Lag 2", lag_4 = "Lag 4", lag_6 = "Lag 6", lag_8 = "Lag 8", lag_10 = "Lag 10",
+    lag_12 = "Lag 12", lag_14 = "Lag 14", lag_16 = "Lag 16", lag_18 = "Lag 18", lag_20 = "Lag 20"
+  ) %>%
+  fmt_number(
+    columns = starts_with("lag_"),
+    decimals = 3
+  ) %>%
+  tab_options(
+    table.font.size = 12,
+    heading.title.font.size = 14,
+    heading.subtitle.font.size = 12,
+    column_labels.font.size = 12
+  )
+
+# Print the gt table
+#print(ljung_box_gt_second_lags)
 ```
 
 
@@ -627,7 +652,32 @@ print(ljung_box_table_second_lags)
 
 P-vrijednosti od 0 za sve vremenske zaostatke ukazuju na to da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom ispitivanom zaostatku. U praktičnim terminima, takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve ispitane vremenske zaostatke.Dosljedno nalazanje značajne autokorelacije na više zaostataka snažno sugerira prisutnost dugog pamćenja ili postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, možda neće biti dovoljni za hvatanje dinamike podataka. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput ARFIMA (AutoRegressive Fractionally Integrated Moving Average), mogli bi biti prikladniji za modeliranje i predviđanje ove vremenske serije.
 
-```{r acf, libs,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r acf,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+
+compute_acf <- function(data, max_lag = 20) {
+  # Remove NA values before computing ACF
+  data <- data %>% filter(!is.na(diff_log_gdp_per_capita))
+  
+  acf_values <- acf(data$diff_log_gdp_per_capita, plot = FALSE, lag.max = max_lag)
+  tibble(lag = acf_values$lag, acf = acf_values$acf)
+}
+
+# Apply the function to your data
+acf_results <- diff_croatia_vs_groups %>%
+  group_by(group) %>%
+  do(compute_acf(.)) %>%
+  ungroup()
+
+# Unnest the ACF values to create a flat data frame
+acf_results <- acf_results %>%
+  unnest(cols = c(lag, acf))
+
+
+
+
+
+
+
 # Plot ACF values as bar charts with facets
 acf_facet_plot <- ggplot(acf_results, aes(x = lag, y = acf)) +
   geom_bar(stat = "identity", fill = "black", color = "white") +
@@ -700,7 +750,7 @@ print(adf_results)
 Tablica X prikazuje rezultate ADF testa jediničnog korijena u vremenskim serijama dohodovnog diferencijala između Hrvatske i četiri grupe zemalja. Nulta hipoteza nestacionarnosti nije mogla biti odbačena u niti jednom testiranom paru osim u diferencijalu između Hrvatske i zemalja južne Europe (SE4). Ovi rezultati sugeriraju da apsolutna niti uvjetna dohodovna konvergencija ne postoji u većini parova. Međutim, na razini signifikantnosti od 5%, ADF test potvrđuje apsolutnu dohodovnu konvergenciju između Hrvatske i SE4 grupe zemalja. Za RH-NMS8, ADF test statistike su relativno male i nisu značajne. Kritične vrijednosti za ADF test su obično oko -3,43 (1%), -2,86 (5%) i -2,57 (10%). Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu. To implicira da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS8 vjerojatno nestacionarna. Slično tome, ADF test statistike za RH-NMS12 također nisu značajne. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS12 vjerojatno nestacionarna. Za RH-SE4, ADF test statistika bez konstante i trenda (-4,13) je relativno velika po apsolutnoj vrijednosti i može biti značajna. Uspoređujući s kritičnim vrijednostima, -4,13 je manje od -3,43 (1%), što sugerira stacionarnost. Međutim, test statistike s konstantom i s konstantom i trendom nisu značajne. Ovi miješani rezultati sugeriraju da vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i SE4 može imati neke stacionarne komponente, ali nije jednoznačno stacionarna. Za RH-EU15, ADF test statistike su veće od onih za NMS8 i NMS12, ali još uvijek nisu tipično značajne na uobičajenim razinama pouzdanosti. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i EU15 vjerojatno nestacionarna. U sažetku, rezultati pokazuju da vremenske serije za RH-NMS8 i RH-NMS12 vjerojatno nisu stacionarne. Za RH-SE4 postoje neki dokazi koji sugeriraju potencijalnu stacionarnost kada se ne uključi konstanta i trend, ali ukupni rezultati su miješani. Za RH-EU15, vremenska serija je vjerojatno nestacionarna.
 
 
-```{r frac, libs,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r frac, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
 
 apply_robinson_estimator <- function(data, group_name) {
   result <- arfima::arfima(data$diff_log_gdp_per_capita)

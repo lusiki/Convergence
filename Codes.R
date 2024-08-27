@@ -297,7 +297,7 @@ compute_ljung_box_every_second_lag <- function(data, max_lag = 20) {
 }
 
 # Apply the function to the data
-ljung_box_results_second_lags <- data %>%
+ljung_box_results_second_lags <- diff_croatia_vs_groups %>%
   group_by(group) %>%
   do(compute_ljung_box_every_second_lag(., max_lag = 20)) %>%
   ungroup()
