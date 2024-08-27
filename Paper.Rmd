@@ -1,0 +1,640 @@
+---
+title: Hrvatska u kontekstu europskih konvergencijskih klubova
+author:
+  - name: Luka Sikic
+    email: luka.sikic@unicath.hr
+    affiliation: Croatian Catholic University
+    footnote: 1
+address:
+  - code: Croatian Catholic University
+    organization: Croatian Catholic University
+    addressline: Ilica 242
+    city: Zagreb
+    state: 
+    postcode: 10000
+    country: Croatia
+abstract: |
+  Rad analizira dohodovnu konvergenciju Hrvatske  u razdoblju od 2000. do 2024. godine prema četiri skupine zemalja: EU15, NMS8, NMS12 te SE4. Analiza koristi metodologiju vremenskih serija, odnosno frakcijske integracije u empirijskoj specifikaciji modela dohodovne konvergencije. Rezultati potvrđuju postojanje konvergencije između Hrvatske i EU15 zemalja te Hrvatske i SE4 zemlje dok konvergencija prema novim zemljama članicama nije potvrđena. Dodatno, rezultati snažno potvrđuju  kako se Hrvatska svrstala u konvergencijski klub zemalja južne Europe, slabije potvrđuju njenu pripadnost klubu EU15 te ukazuju kako ona ne pripada konvergencijskom klubu novih europskih zemalja članica.
+keywords: 
+  - income convergence
+  - convergence clubs
+  - European integration process
+  - fractional integration
+journal: "An awesome journal"
+date: "`r Sys.Date()`"
+linenumbers: false
+numbersections: true
+#bibliography: refs.bib
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: kable
+
+---
+
+
+
+# Uvod
+
+Rad istražuje dohodovnu konvergenciju Hrvatske prema nekoliko skupina europskih zemalja: stare zemlje članice Europske Unije (EU15), nove zemlje članice (NMS8 i NMS12) te zemlje juga Europe (SE4).  Rad koristi analizu vremenskih serija nadovezujući se na literaturu koja koristi testove frakcijske integracije u makroekonomskoj analizi (vidi Michelacci i Zaffaroni, 2000; Gil-Alana i Hualde, 2009; Škare i Stjepanović, 2013) i njihovu primjenu u analizi dohodovne konvergencije (vdi Silverberg i Verspagen, 1999; Cunado, Gil-Alana, i Pérez de Gracia, 2006; Mello i Guimaraes-Filho, 2007; Ayala, Cunado i Gil-Alana, 2012).
+
+U nastavku rada se daje pregled najvažnijih aspekata literature o dohodovnoj konvergenciji te pregled radova koji su analizirali konvergenciju dohotka u europskim posttranzicijskim zemljama. U trećem dijelu se opisuju koncepti dohodovne konvergencije u okviru analize vremenskih serija te se opisuje metodologija frakcijske integracije i procjenitelji korišteni u analizi. U četvrtom dijelu su opisane stilizirane činjenice o konvergencijskom procesu Republike Hrvatske prema dohodovnim razinama grupa EU15, NMS8, NMS12 te SE4, a u petom dijelu su prikazani rezultati istraživanja. U posljednjem dijelu se donose zaključci analize.
+
+
+
+
+# Pregled literature o dohodovnoj konvergenciji
+
+Rana konvergencijska literatura je bila dominantno usmjerena na testiranje ekonomske teorije rasta (Barro i Sala i Martin, 1990; 1991; Barro, 1991; Mankiw et al., 1992), uglavnom koristeći prostornu (engl. cross-section) regresijsku analizu. Dio radova je koristio i različite procjenitelje panel podataka (Knight et al., 1993; Islam, 1995; Caselli et al., 1996; Lee et al., 1998; Bond et al., 2001). Nalazi su pretežito potvrdili postojanje apsolutne ili uvjetne konvergencije u globalnom uzorku zemalja u rasponu od 2% do 4%, no nije postignut jedinstven konsenzus oko dohodovne konvergencije u globalnom uzorku zemalja. Nakon toga se literatura usmjerila na primjenu različitih metoda u testiranju dohodovne konvergencije. Bernard i Durlauf (1991) započinju analizu dohodovne konvergencije u okviru metodologije vremenskih serija. Bernard i Durlauf (1996) pokazuju da tehnike vremenskih serija imaju poželjnija empirijska svojstva od prostorne analize dohodovne konvergencije. U radovima Bernard i Durlauf (1991, 1995) autori uvode termin stohastičke konvergencije, koji se odnosi na testiranje jediničnog korijena u razlici BDP per capita vremenskih serija dviju zemalja. 
+
+Bernard i Durlauf (1991) testiraju stohastičku konvergenciju pomoću testova jediničnog korijena na razlikama dohotka 15 OECD zemalja i grupnog prosjeka, ne pronalazeći snažne dokaze za dugoročnu konvergenciju u svim zemljama, ali potvrđujući konvergenciju za manju skupinu europskih zemalja. Jones (2002) analizira dohodovnu konvergenciju u zapadnoafričkim državama, koristeći metodologiju jediničnog korijena i koncept stohastičke konvergencije, te ne pronalazi snažne dokaze za konvergenciju u cjelokupnom uzorku. Pesaran (2007) koristi ADF i KPSS testove stacionarnost dohodovnih razlika između parova zemalja u uzorcima od 56, 99 i 101 zemlje i različitim razdobljima od 1950. do 2000. godine, potvrđujući konvergencijsku hipotezu za 72% parova. Rezultati ukazuju na formiranje konvergencijskih klubova, gdje postoji konvergencija unutar određenih podskupina zemalja ali ne i globalnog uzorka.
+
+Istraživanje dohodovne konvergencije u okviru vremenskih serija prošireno je na analizu panel podataka. To uključuje testove stacionarnosti te kointegracijsku analizu u panel podacima. Evans i Karras (1996a) potvrđuju konvergenciju između 48 država SAD-a i 54 zemlje koristeći metodologiju jediničnog korijena u panel podacima (Levin i Lin, 1993). U drugom radu, Evans i Karras (1993b) istražuju apsolutnu konvergenciju između država SAD-a, ne pronalazeći dokaze za apsolutnu konvergenciju. Fleissig i Strauss (2001) koriste testove jediničnog korijena za analizu dugoročne konvergencije u 15 OECD zemalja i europskih zemalja za razdoblje 1900.-1987. Rezultati potvrđuju konvergenciju nakon Drugog svjetskog rata, ali ne i za cjelokupni period. Kim (2005) koristi kointegracijski panel test na uzorku 13 korejskih regija, potvrđujući konvergenciju. Carron Silvestre i Evans i Kim (2011) koriste panel test jediničnog korijena, potvrđujući konvergenciju između 13 azijskih zemalja.
+
+Manji broj radova o dohodovnoj konvergenciji koristio je metodologiju frakcijske integracije. Taj dio literature istaknuo je manjkavosti testova jediničnog korijena i kointegracije zbog statističkih svojstava te restriktivnosti vezane uz kointegracijski parametar koji može biti 0 ili jedan. Budući da je konvergencija proces dugog trajanja, pristup frakcijske integracije ističe da valja dopustiti variranje integracijskog parametra u rasponu od 0 do 1 da bi se analizom obuhvatili procesi duge memorije. Michelacci i Zaffaroni (2000) predlažu standardne testove stacionarnosti tek kao prvi korak u analizi dohodovne serije te dokazuju da konvergencijska stopa od 2 % odgovara integracijskom parametru od 0,5 do 1 u pristupu frakcijske integracije. Autori pronalaze dokaze koji podupiru rezultate prostornog regresijskog pristupa te zaključuju da je taj pristup kompatibilan s pristupom vremenskih serija. Cunado et al. (2003) primjenjuje metodu frakcijske integracije da bi ispitao konvergenciju Australije, Japana, Kanade i Engleske prema dohodovnom prosjeku SAD. Rezultati potvrđuju postojanje konvergencije za Australiju i Kanadu te manje pouzdani dokazi za Englesku dok studija nije mogla potvrditi konvergenciju za Japan. Ayala et al. (2012) istražuju konvergenciju 17 zemalja Latinske Amerike prema dohodovnom prosijeku SAD a za razdoblje od 1950. do 2008. godine koristeći metodu frakcijske integracije. Autori nisu uspjeli potvrditi hipotezu stohastičke konvergencije niti za jednu od zemalja iz uzorka. Kamal i Arteche (2024) koriste metodologiju frakcijske integracije i ne pronalaze dokaze o postojanju dohodovne konvergencije na razini španjolskih regija.
+
+## Dohodovna konvergencija u EU posttranzicijskim zemljama
+
+Istraživanja o konvergenciji u europskim posttranzicijskim zemljama analizirala su različite skupine zemalja, aspekte ekonomske konvergencije i koristila različite metodološke pristupe. Jedna grupa istraživanja fokusirala se na beta i sigma konvergenciju u novim zemljama članicama EU, koristeći prostornu i panel analizu, dok su neki radovi koristili vremenske serije. Duljina vremenskog raspona varirala je među istraživanjima, čineći rezultate teško usporedivima. Druga grupa istraživanja proučavala je konvergenciju makroekonomskih indikatora u posttranzicijskim zemljama prema europskim razinama.
+
+Kočenda (2001) analizira konvergenciju makroekonomskih indikatora za zemlje središnje i istočne Europe prema europskom prosjeku od 1991. do 1998. Rezultati pokazuju konvergenciju u većini zemalja i indikatora, s najjačom konvergencijom dohotka, te bržim napretkom baltičkih zemalja. Dobrinsky (2003) fokusira se na dohodovnu konvergenciju novih članica EU, pokazujući da se pozitivni trend konvergencije prema europskim razinama pojavio nakon sredine 1990-ih. Kutan i Yigit (2004) istražuju nominalnu i realnu konvergenciju u pet grupa europskih tranzicijskih zemalja od 1993. do 2000., potvrđujući manji stupanj nominalne i realne konvergencije. Vojinović i Oplotnik (2004) analiziraju uvjetnu beta i sigma konvergenciju zemalja koje su pristupile EU 2004. godine, otkrivajući bržu konvergenciju od 1995. do 2006. godine. Kočenda et al. (2006) ispituju nominalnu i realnu konvergenciju 10 novih članica EU, pokazujući sporu dohodovnu konvergenciju, ali bržu nominalnu konvergenciju.
+
+Brüggemann i Trenkler (2007) koriste test jediničnog korijena za analizu dohodovne konvergencije Češke, Poljske i Mađarske prema EU15 i mediteranskim zemljama, potvrđujući konvergenciju Češke i Mađarske. Rapacki i Prochniak (2009) analiziraju apsolutnu i uvjetnu beta konvergenciju te sigma konvergenciju u 27 bivših socijalističkih zemalja od 1990. do 2005. godine, zaključujući da srednja i istočna Europa imaju različite konvergencijske obrasce od CIS zemalja. Ignanni i Zdarek (2009) istražuju dohodovnu konvergenciju novih članica EU, koristeći različite metodologije, te zaključuju da konvergencija postoji, ali nije postojana. Vojinović, Acharya i Prochniak (2009) potvrđuju beta i sigma konvergenciju za 10 zemalja koje su postale članice EU 2004. godine, s bržom konvergencijom od sredine 1990-ih do 2000-ih, potaknutoj integracijom s EU.
+
+Nekoliko istraživanja je potvrdilo dohodovnu konvergenciju posttranzicijskih zemalja prema europskom centru (Monfort i sur., 2013; Próchniak i Witkowski, 2013; Szeles i Marinescu, 2010) u razdoblju do zadnjeg proširenja Europske Unije, a dokazi potvrđuju nastavak konvergencijskog procesa i nakon globalne financijske krize (Åslund, 2018). Literatura općenito nije postigla konsenzus o tome hoće li proces konvergencije posttranzicijskih zemalja biti završen (Papi et al., 2018), no dokazi upućuju da je članstvo u Europskoj Uniji bilo važno za nastavak približavanja tih zemalja europskom dohodovnom prosjeku (Rapacki, 2019).
+
+
+# Koncepti dohodovne konvergencij u okviru metodologije vremenskih serija i frakcijska integracija
+
+
+
+U metodologiji vremenskih serija poznata su dva temeljna konvergencijska koncepta: apsolutna i uvjetna konvergencija. Dohodovna konvergencija može se definirati kao:
+
+\[
+\lim_{k \to \infty} E(y_{i,t+k} - y_{j,t+k} \mid I_t) = 0 \tag{1}
+\]
+
+gdje je dohodak u danom periodu definiran kao \( y_t = \ln(Y_t) \), \( y_{i,t} \) označava dohodak u zemlji \( i \) u trenutku \( t \), \( y_{j,t} \) je dohodak u zemlji \( j \) u istom razdoblju, dok \( I_t \) označava set raspoloživih informacija u danom periodu. Jednadžba (1) označava da je razlika dohotka zemlje \( i \) i \( j \) stacionaran proces sa prosjekom nula. Ovaj koncept, poznat kao deterministička konvergencija, povezuje se s Bernardom i Durlaufom (1995).
+
+Proširenjem definicije (1):
+
+\[
+\lim_{k \to \infty} E(y_{i,t+k} - y_{j,t+k} \mid I_t) = \beta \tag{2}
+\]
+
+gdje \( \beta \) označava konstantu, (1) predstavlja definiciju apsolutne konvergencije, dok se (2) odnosi na uvjetnu konvergenciju. Jednadžba (2) označava da će dvije zemlje konvergirati uz postojanje konstantnog dohodovnog jaza jednakog \( \beta \). Ovaj koncept stohastičke konvergencije, povezan s Carlinom i Millsom (1993), implicira da je razlika dohotka zemalja \( i \) i \( j \) trend stacionaran proces.
+
+Pošto se konvergencijski koncepti (1) i (2) odnose na logaritmirane vrijednosti, izražene kao:
+
+\[
+\log\left(\frac{y_{i,t}}{y_{j,t}}\right) \tag{3}
+\]
+
+Apsolutna konvergencija prema definiciji (3) izražava se kao:
+
+\[
+\log\left(\frac{y_{i,t}}{y_{j,t}}\right) = \alpha + \epsilon_{i,j,t} \tag{4}
+\]
+
+Uvjetna konvergencija definirana je kao:
+
+\[
+\log\left(\frac{y_{i,t}}{y_{j,t}}\right) = \beta + \alpha + \epsilon_{i,j,t} \tag{5}
+\]
+
+Statistička analiza dohodovne konvergencije može se provesti testom jediničnog korijena u vremenskoj seriji razlike dohotka zemalja \( i \) i \( j \), kako predlažu Carlino i Mills (1993). Druga metoda je kointegracijska analiza, predložena od strane Bernarda i Durlaufa (1995). Da bi se ekonomski koncepti dohodovne konvergencije ekonometrijski testirali, definiramo:
+
+\[
+y_{i,j,t} = \log\left(\frac{Y_{i,t}}{Y_{j,t}}\right) \tag{6}
+\]
+
+gdje \( y_{i,j,t} \) predstavlja razliku logaritama dohotka u zemlji \( i \) i \( j \). Uz definicije dohodovne konvergencije (1) i (2) te uzimajući u obzir da \( I_t \) označava informacijski set u trenutku \( t \), jednadžba (6) se može kompaktno zapisati:
+
+\[
+y_{i,j,t} = \alpha + \epsilon_{i,j,t} \tag{7}
+\]
+
+Model (6) može se asimptotski izraziti kao:
+
+\[
+y_{i,j,t} = \beta + \alpha + \epsilon_{i,j,t} \tag{8}
+\]
+
+iz čega slijedi da svaka situacija gdje \( \beta = 0 \) implicira konvergenciju uz konstantnu dohodovnu razliku. Ovo postaje jasnije preustrojem jednadžbe (8):
+
+\[
+\Delta y_{i,j,t} = \epsilon_{i,j,t} \tag{9}
+\]
+
+
+
+## Frakcijska integracija
+
+
+Koncept frakcijske integracije je uveden u makroekonometrijsku literaturu radovima Granger (1980, 1981), Granger i Joyeux (1980), te Hosking (1981). Ovim konceptom se nastojalo opisati snažno autokorelirane procese za koje je karakteristična povezanost među međusobno udaljenim realizacijama. 
+
+Ukoliko je neka vremenska serija integrirana reda \( z=0 \), može se reći kako je riječ o procesu kratke memorije čija autokorelacijska funkcija brzo opada, dok integracijski parametar \( z=1 \) označava nestacionarnost i perzistentnost šokova u takvoj vremenskoj seriji. Od statističkog i ekonomskog interesa je analizirati da li integracijski parametar poprima neku necjelobrojnu vrijednost unutar intervala \( 0<z<1 \). 
+
+Primjerice, ukoliko \( 0<z<0.5 \), vremenska serija je stacionarna, no njena autokorelacijska funkcija će opadati sporije nego u slučaju \( z=0 \). Slučaj kada parametar integracije leži u intervalu \( 0.5<z<1 \) označava vremensku seriju koja je nestacionarna, no reverzibilna prema prosjeku. Tada je riječ o procesu duge memorije koji nije kovarijančno stacionaran, no šokovi će ipak nestati iz serije u dugom roku. 
+
+## Frakcijski integrirani proces
+
+Nadovezujući se na prethodne radove, frakcijski integrirani proces dohodovnih razlika između zemlje \( i \) i \( j \) se može zapisati u obliku:
+
+\[
+(1-L)^z (y_{i,t} - y_{j,t}) = \epsilon_t \tag{10}
+\]
+
+gdje je \( L \) operator pomaka i definiran je kao \( L^k y_t = y_{t-k} \), \( \epsilon_t \) označava standardnu pogrešku modela za koju se pretpostavlja da je opisana stohastičkim procesom bijelog šuma koji ima prosjek nula i konstantnu varijancu.
+
+Jednadžbu (10) je sada moguće izraziti u generalnijem obliku pogodnom za empirijsko testiranje:
+
+\[
+\phi(L)(1-L)^z (y_{i,t} - y_{j,t}) = \theta(L)\epsilon_t \tag{11}
+\]
+
+gdje je \( \phi(L) \) autoregresivni polinom pomaka definiran kao \( \phi(L) = 1 - \phi_1 L - \phi_2 L^2 - \dots - \phi_p L^p \), \( \theta(L) \) je polinom pomičnog prosjeka operatora pomaka i opisan je kao \( \theta(L) = 1 + \theta_1 L + \theta_2 L^2 + \dots + \theta_q L^q \), dok \( (1-L)^z \) predstavlja operator frakcijske diferencije u obliku:
+
+\[
+(1-L)^z = \sum_{k=0}^{\infty} \frac{\Gamma(k-z)}{\Gamma(-z)\Gamma(k+1)} L^k
+\]
+
+Pri tome \( \Gamma(\cdot) \) označava generaliziranu faktorsku gama funkciju.
+
+Invertiranje jednadžbe (11) je moguće u slučaju kada parametar \( z \) frakcijske integracije leži u intervalu \( 0<z<0.5 \), te je tada moguće je zapisati:
+
+\[
+y_{i,t} - y_{j,t} = \frac{\theta(L)}{\phi(L)}(1-L)^{-z}\epsilon_t \tag{12}
+\]
+
+iz čega je vidljivo da \( \phi(L) \) opisuje kratkoročnu dinamiku procesa, dok su njegovi dugoročni efekti obuhvaćeni izrazom za frakcijsku integraciju \( (1-L)^{-z} \).
+
+U slučaju kada je \( z \) invertibilnost u (12) moguća, proces (11) je stacionaran. U kontekstu ovog rada je od posebnog interesa slučaj u kojem parametar frakcijske integracije leži u intervalu \( 0.5<z<1 \). Tada je riječ o nestacionarnom procesu koji ima tendenciju vraćanja prema prosjeku (mean-reverting). 
+
+Za proces koji ima tendenciju vraćanja prema prosječnoj vrijednosti je karakteristično da funkcija kumulativnih impulsnih šokova asimptotski teži nuli. Upravo se tu očituje dodatna fleksibilnost pristupa frakcijske kointegracije u odnosu na pristup testiranja stacionarnosti ili kointegracije.
+
+Naime, parametar frakcijske integracije koji iznosi manje od jediničnog označava kako će šok vremenske serije \( \epsilon_t \) odumrijeti čak i u slučaju da je ta vremenska serija ima karakteristike nestacionaranog procesa. Mello i Guimaraes-Filho (2007) dokazuju kako je u tom slučaju koncept uvjetne dohodovne konvergencije dobro opisan frakcijski integriranim procesom (11).
+
+## Empirijska Specifikacija
+
+Empirijska specifikacija analize se u ovome radu odnosi na dohodovni diferencijal između Hrvatske i dohodovnog prosjeka četiri grupe zemalja EU15, NMS8, NMS12 te SE4. Budući da se prosjek grupe zemalja koristi kao konvergencijski benchmark, model (6) je potrebno preinačiti na način:
+
+\[
+\phi(L)(1-L)^z (\log y_{HR,t} - \log y_{avg,t}) = \theta(L)\epsilon_t \tag{13}
+\]
+
+gdje \( \log y_{avg,t} \) označava dohodovni prosjek \( j \) zemalja svake od četiri navedene grupe i definiran je kao:
+
+\[
+\log y_{avg,t} = \frac{1}{n}\sum_{j=1}^{n} \log y_{j,t}
+\]
+
+To implicira konačnu empirijsku specifikaciju dohodovnog diferencijala u obliku:
+
+\[
+y_{HR,t} - y_{avg,t} = \frac{\theta(L)}{\phi(L)}(1-L)^{-z}\epsilon_t \tag{14}
+\]
+
+## Metodologija
+
+Tri su temeljna pristupa empirijske procjene modela frakcijske integracije: parametarski, semi-parametarski i neparametarski. U ovom radu će se koristiti semi-parametarski Robinsonov (1995a, 1995b) pristup (RLP), a u svrhu provjere robusnosti rezultata će se dodatno testirati dva semi-parametarska pristupa: Geweke i Porter-Hudak (1983) (GPH) te Phillips (1999a, 1999b) (P-GPH).
+
+Razlog korištenja semi-parametarskih pristupa je što su oni prikladni za korekcije krivo specificiranih parametarskih modela. U okviru semi-parametarskog pristupa se mogu analizirati dugoročna svojstva vremenske serije uz pretpostavku da je njeno ponašanje u kratkom roku relativno nevažan element procesa i zbog toga nije potrebno eksplicitno modelirati njegovu kratkoročnu dinamiku.
+
+GPH test dobiva frakcijski parameter temeljem primjene metode najmanjih kvadrata na izraz:
+
+\[
+\log I(\lambda_j) = a + z \log \lambda_j + u_j \tag{15}
+\]
+
+pri čemu je log periodogram \( I(\lambda_j) \) izračunat preko fundamentalnih frekvencija:
+
+\[
+\lambda_j = \frac{2\pi j}{T}, \quad j = 1, 2, \dots, \left\lfloor \frac{T-1}{2} \right\rfloor \tag{16}
+\]
+
+Ako se definiraju \( X_t \) i diskretna Fourierova transformacija vremenske serije \( X_t \) kao \( D(\lambda_j) = \sum_{t=1}^{T} X_t e^{-i\lambda_j t} \), tada je frakcijski parametar \( z \) na temelju (15) dan kao:
+
+\[
+\hat{z} = -\frac{1}{4\pi^2}\sum_{j=1}^{m}\left[\log I(\lambda_j) - \log I(\lambda_{j-1})\right] \tag{17}
+\]
+
+Pri tome je izrazito važno kako izabrati broj Fourierovih frekvencija \( m \) pošto taj izbor može znatno utjecati na procijenjeni parametar frakcijske integracije. Zbog toga Phillips (1999a) razvija procjenitelj koji se ne zasniva na točno određenoj reprezentaciji Fourierove transformacije pod nultom hipotezom nestacionarnosti, već modificira GPH test tako da on odražava distribuciju frakcijskog parametra \( d \) pod nultom hipotezom jediničnog korijena.
+
+P-GPH test je baziran na jednakoj reprezentaciji diskretne Fourierove transformacije u slučaju jediničnog korijena:
+
+\[
+\log I(\lambda_j) = a + d \log \lambda_j + v_j \tag{18}
+\]
+
+te modificirane diskretne Fourierove transformacije:
+
+\[
+\log I(\lambda_j) = a + d \log \lambda_j + v_j + \theta \lambda_j^k \tag{19}
+\]
+
+gdje su ordinate periodograma definirane kao \( \hat{I}(\lambda_j) = \frac{1}{T} |D(\lambda_j)|^2 \). Log periodogram je sada moguće definirati regresijom na \( \log \lambda_j \), a korekcija frakcijskog parametra \( d \) je dana u obliku:
+
+\[
+\hat{d} = \frac{1}{4\pi^2}\sum_{j=1}^{m}\left[\log I(\lambda_j) - \log I(\lambda_{j-1})\right] \tag{20}
+\]
+
+gdje su \( \hat{I}(\lambda_j) \) i \( \hat{I}(\lambda_{j-1}) \) diskretne Fourierove transformacije za \( j \) i \( j-1 \).
+
+Phillips (1999) dokazuje kako je distribucija korigiranog parametra frakcijske integracije:
+
+\[
+\hat{d} \sim N(0, 1/T) \tag{21}
+\]
+
+tako da on ima jednaku distribuciju pod nultom hipotezom nestacionarnosti (\( d=1 \)) kao u slučaju stacionarnosti parametra kod GPH testa. P-GPH test se bazira na statistici koja je za slučaj jediničnog korijena definirana kao:
+
+\[
+T\hat{d}^2 \sim \chi^2(1) \tag{22}
+\]
+
+pri čemu su kritičke granice dane standardnom distribucijom. Test je zasnovan na alternativnoj hipotezi frakcijske integracije i konzistentan je u slučaju da je frakcijski parametar manji ili veći od jedinice (\( d < 1 \) ili \( d > 1 \)).
+
+## Robinsonov Pristup
+
+Robinsonov procjenitelj nije ograničen na korištenje malog dijela ordinata u periodogramu vremenske serije. Dodatno omogućava uklanjanje inicijalnih ordinata u periodogramu te dozvoljava uprosječivanje periodograma kroz sve susjedne frekvencije. Robinsonov multivarijatni procjenitelj parametra frakcijske integracije \( \hat{d} \) za skupinu \( G \) vremenskih serija \( \{X_{g,t}\}_{g=1}^{G} \) za \( g = 1, 2, \dots, G \) je dan u obliku:
+
+\[
+\hat{d}_g = \frac{1}{G}\sum_{g=1}^{G} \hat{d}_g \tag{23}
+\]
+
+te vrijedi i u univarijatnom slučaju. \( \hat{d}_g \) u modelu (23) označava \( G \)-dimenzionalni vektor sastavljen od \( G \) elemenata vektora \( \{X_{g,t}\}_{g=1}^{G} \) te se pretpostavlja da \( X_{g,t} \) prati matricu spektralne gustoće \( \Sigma(\lambda_j) \), gdje su \( g \) i \( h \) elementi dani kao:
+
+\[
+\Sigma_{gh}(\lambda_j) = \frac{1}{T}D_g(\lambda_j)D_h^*(\lambda_j)
+\]
+
+Model također pretpostavlja da \( \Sigma(\lambda_j) = \text{diag}\{\Sigma_{gg}(\lambda_j)\}_{g=1}^{G} \), kada \( g = h \), za \( g \neq h \), označava dijagonalni element matrice spektralne gustoće \( \Sigma_{gg}(\lambda_j) \) za slučaj \( d_g = d_h \) i \( \Sigma_{gh}(\lambda_j) = 0 \). Tada je metodom najmanjih kvadrata moguće procijeniti parametar frakcijske integracije \( \hat{d} \) te parametar \( \theta \) modelom:
+
+\[
+y_t = Z_t + \theta Y_t + \epsilon_t \tag{24}
+\]
+
+gdje su vektori \( Z_t \) i \( Y_t \) definirani kao \( Z_t = \{Z_{1,t}, Z_{2,t}, \dots, Z_{G,t}\} \) te \( Y_t = \{Y_{1,t}, Y_{2,t}, \dots, Y_{G,t}\} \) za ordinate \( m \) periodograma.
+
+
+# Korišteni podatci i stilizirane činjenice
+
+U istraživanju se koriste vremenske serije BDP-a Hrvatske i nekoliko skupina zemalja u razdoblju od početka 2000. do kraja 2023. godine: stare zemlje članice Europske Unije (EU15), nove zemlje članice (NMS8 i NMS12) te zemlje juga Europe (SE4).  Pri tome se koriste EUROSTAT-ovi podatci BDP-a na kvartalnoj frekvenciji u razdoblju od 2000q1 do 2023q4. EUROSTAT baza objavljuje podatke za kvartalni BDP bez korekcije za broj stanovnika pa je zbog toga je u ovom radu dodatno korištena IMF-ova baza World Economic Outlook iz koje su preuzeti godišnji podatci o stanovništvu u periodu od 2000. godine  do 2023. godine za sve zemlje obuhvaćene analizom. Godišnji podatci za stanovištvo su dezagregirani na kvartalne metodom kubične interpolacije nakon čega su korišteni u formiranju vremenske serije kvartalnog BDP per capita.
+
+```{r libs,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+#### LIBS ----
+library(eurostat)
+library(tidyverse)
+library(zoo)
+library(scales)
+library(tseries)
+library(urca)
+library(fracdiff)
+library(arfima)
+library(gt)
+
+```
+
+```{r data, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+
+#### DATA----
+# Define groups of countries
+nms8 <- c("CZ", "EE", "HU", "LV", "LT", "PL", "SK", "SI")
+nms12 <- c(nms8, "BG", "RO", "CY", "MT")
+se4 <- c("EL", "PT", "ES", "IT")
+eu15 <- c("AT", "BE", "DK", "FI", "FR", "DE", "EL", "IE", "IT", "LU", "NL", "PT", "ES", "SE", "UK")
+croatia <- "HR"
+
+# Get seasonally adjusted quarterly GDP data for European countries from 2000 onwards
+gdp_quarterly <- get_eurostat("namq_10_gdp", time_format = "date")
+
+# Filter the dataset for GDP (current prices, million euros, seasonally adjusted) and from 2000 onwards
+gdp_quarterly <- gdp_quarterly %>%
+  filter(na_item == "B1GQ", unit == "CP_MEUR", s_adj == "SCA", TIME_PERIOD >= as.Date("2000-01-01"))
+
+# Select relevant columns and convert to a more readable format
+gdp_quarterly <- gdp_quarterly %>%
+  select(geo, TIME_PERIOD, values) %>%
+  rename(country = geo, date = TIME_PERIOD, gdp = values)
+
+# Get annual population data for European countries
+pop_data <- get_eurostat("demo_r_pjanaggr3", time_format = "date")
+
+# Filter population data to include only the necessary columns and years from 2000 onwards
+pop_data <- pop_data %>%
+  filter(geo %in% c(nms8, nms12, se4, eu15, croatia), sex == "T", age == "TOTAL", TIME_PERIOD >= as.Date("2000-01-01")) %>%
+  select(geo, TIME_PERIOD, values) %>%
+  rename(country = geo, year = TIME_PERIOD, population = values)
+
+# Define a function to interpolate annual population data to quarterly frequency
+interpolate_population <- function(pop_data) {
+  pop_data %>%
+    group_by(country) %>%
+    complete(year = seq(min(year), max(year), by = "year")) %>%
+    mutate(population = zoo::na.approx(population, na.rm = FALSE)) %>%
+    mutate(year_quarter = as.yearqtr(year) + seq(0, 0.75, by = 0.25)) %>%
+    complete(year_quarter = seq(min(year_quarter), max(year_quarter), by = 0.25)) %>%
+    mutate(population = zoo::na.spline(population, na.rm = FALSE)) %>%
+    select(country, year_quarter, population)
+}
+
+# Interpolate the population data to quarterly frequency
+pop_data_quarterly <- interpolate_population(pop_data)
+
+# Merge GDP data with interpolated population data
+merge_gdp_pop <- function(gdp_data, pop_data_quarterly) {
+  gdp_data %>%
+    mutate(year_quarter = as.yearqtr(date)) %>%
+    left_join(pop_data_quarterly, by = c("country" = "country", "year_quarter" = "year_quarter")) %>%
+    mutate(gdp_per_capita = gdp * 1e6 / population,   # Convert GDP to euros
+           log_gdp_per_capita = log(gdp_per_capita)) %>%  # Calculate log GDP per capita
+    select(country, date, log_gdp_per_capita)
+}
+
+# Filter and merge data for each group and Croatia
+gdp_croatia <- gdp_quarterly %>% filter(country == croatia)
+gdp_croatia <- merge_gdp_pop(gdp_croatia, pop_data_quarterly)
+
+gdp_nms8 <- gdp_quarterly %>% filter(country %in% nms8)
+gdp_nms8 <- merge_gdp_pop(gdp_nms8, pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE))
+
+gdp_nms12 <- gdp_quarterly %>% filter(country %in% nms12)
+gdp_nms12 <- merge_gdp_pop(gdp_nms12, pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE))
+
+gdp_se4 <- gdp_quarterly %>% filter(country %in% se4)
+gdp_se4 <- merge_gdp_pop(gdp_se4, pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE))
+
+gdp_eu15 <- gdp_quarterly %>% filter(country %in% eu15)
+gdp_eu15 <- merge_gdp_pop(gdp_eu15, pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE))
+
+# Add group names to each data frame before calculating differences
+gdp_nms8 <- gdp_nms8 %>% mutate(group = "NMS8")
+gdp_nms12 <- gdp_nms12 %>% mutate(group = "NMS12")
+gdp_se4 <- gdp_se4 %>% mutate(group = "SE4")
+gdp_eu15 <- gdp_eu15 %>% mutate(group = "EU15")
+
+# Calculate the differences between Croatia's log GDP per capita and the groups
+calculate_differences <- function(croatia_data, group_data) {
+  croatia_data <- croatia_data %>% select(date, log_gdp_per_capita) %>% rename(log_gdp_per_capita_croatia = log_gdp_per_capita)
+  combined_data <- left_join(group_data, croatia_data, by = "date")
+  combined_data %>%
+    mutate(diff_log_gdp_per_capita = log_gdp_per_capita - log_gdp_per_capita_croatia) %>%
+    select(date, group, diff_log_gdp_per_capita)
+}
+
+diff_croatia_vs_nms8 <- calculate_differences(gdp_croatia, gdp_nms8)
+diff_croatia_vs_nms12 <- calculate_differences(gdp_croatia, gdp_nms12)
+diff_croatia_vs_se4 <- calculate_differences(gdp_croatia, gdp_se4)
+diff_croatia_vs_eu15 <- calculate_differences(gdp_croatia, gdp_eu15)
+
+# Combine data for differences
+combine_for_plot_diff <- function(...) {
+  combined <- bind_rows(...)
+  return(combined)
+}
+
+diff_croatia_vs_groups <- combine_for_plot_diff(diff_croatia_vs_nms8, diff_croatia_vs_nms12, diff_croatia_vs_se4, diff_croatia_vs_eu15)
+
+# Create a combined data frame for plotting
+combine_for_plot <- function(df1, df2, group_name) {
+  df1 <- df1 %>% mutate(group = "Croatia")
+  df2 <- df2 %>% mutate(group = group_name)
+  combined <- bind_rows(df1, df2)
+  return(combined)
+}
+
+croatia_vs_nms8 <- combine_for_plot(gdp_croatia, gdp_nms8, "NMS8")
+croatia_vs_nms12 <- combine_for_plot(gdp_croatia, gdp_nms12, "NMS12")
+croatia_vs_se4 <- combine_for_plot(gdp_croatia, gdp_se4, "SE4")
+croatia_vs_eu15 <- combine_for_plot(gdp_croatia, gdp_eu15, "EU15")
+```
+
+```{r vizualizacija, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+# Define a custom date labeling function
+quarterly_labels <- function(x) {
+  format(x, "%Yq%q")
+}
+
+# Create separate plots using ggplot2
+plot_comparison <- function(data, title) {
+  data <- data %>% filter(format(date, "%Y") < "2024")
+  quarter_breaks <- seq.Date(from = min(data$date), to = max(data$date), by = "15 months")
+  
+  ggplot(data, aes(x = date, y = log_gdp_per_capita, color = group, linetype = group)) +
+    geom_line(size = 1.2) +  # Adjust the size parameter for thicker lines
+    labs(title = title, x = "Datum", y = "Log BDP per capita") +
+    theme_minimal() +
+    scale_color_manual(values = c("Croatia" = "black", 
+                                  "NMS8" = "gray20", 
+                                  "NMS12" = "gray40", 
+                                  "SE4" = "gray60", 
+                                  "EU15" = "gray80")) +
+    scale_linetype_manual(values = c("Croatia" = "solid", 
+                                     "NMS8" = "dashed", 
+                                     "NMS12" = "dotted", 
+                                     "SE4" = "dotdash", 
+                                     "EU15" = "longdash")) +
+    scale_x_date(breaks = quarter_breaks,  # Use quarter breaks
+                 labels = function(x) paste0(format(x, "%Y"), "q", as.numeric(format(x, "%m")) %/% 3 + 1),
+                 expand = expansion(mult = c(0, 0.05))) +  # Add a small expansion to the right
+    coord_cartesian(xlim = c(min(data$date), max(data$date) + 15)) +  # Ensure the last quarter is shown by adding buffer
+    geom_vline(xintercept = as.numeric(quarter_breaks), color = "gray80", linetype = "solid") +  # Add vertical lines
+    theme(legend.position = "bottom") +  # Place legend at the bottom
+    guides(color = guide_legend(title = NULL), linetype = guide_legend(title = NULL))  # Remove legend titles
+}
+
+# Plot for Croatia vs NMS8
+plot_nms8 <- plot_comparison(croatia_vs_nms8, "")
+
+# Plot for Croatia vs NMS12
+plot_nms12 <- plot_comparison(croatia_vs_nms12, "")
+
+# Plot for Croatia vs SE4
+plot_se4 <- plot_comparison(croatia_vs_se4, "")
+
+# Plot for Croatia vs EU15
+plot_eu15 <- plot_comparison(croatia_vs_eu15, "")
+
+# Display the plots
+print(plot_nms8)
+print(plot_nms12)
+print(plot_se4)
+print(plot_eu15)
+
+# Visualize the differences in log GDP per capita
+plot_diff_comparison <- function(data, title) {
+  data <- data %>% filter(format(date, "%Y") < "2024")
+  quarter_breaks <- seq.Date(from = min(data$date), to = max(data$date), by = "15 months")
+  
+  ggplot(data, aes(x = date, y = diff_log_gdp_per_capita, color = group, linetype = group)) +
+    geom_line(size = 1.2) +
+    labs(title = title, x = "Date", y = "Razlika (log) BDP per capita") +
+    theme_minimal() +
+    scale_color_manual(values = c("NMS8" = "gray20", 
+                                  "NMS12" = "gray40", 
+                                  "SE4" = "gray60", 
+                                  "EU15" = "gray80")) +
+    scale_linetype_manual(values = c("NMS8" = "dashed", 
+                                     "NMS12" = "dotted", 
+                                     "SE4" = "dotdash", 
+                                     "EU15" = "longdash")) +
+    scale_x_date(breaks = quarter_breaks,  # Use quarter breaks
+                 labels = function(x) paste0(format(x, "%Y"), "q", as.numeric(format(x, "%m")) %/% 3 + 1),
+                 expand = expansion(mult = c(0, 0.05))) +  # Add a small expansion to the right
+    coord_cartesian(xlim = c(min(data$date), max(data$date) + 15)) +  # Ensure the last quarter is shown by adding buffer
+    geom_vline(xintercept = as.numeric(quarter_breaks), color = "gray80", linetype = "solid") +  # Add vertical lines
+    theme(legend.position = "none")  # Format labels as 2000 q1
+}
+
+# Plot for differences
+plot_diff_nms8 <- plot_diff_comparison(diff_croatia_vs_nms8, "")
+plot_diff_nms12 <- plot_diff_comparison(diff_croatia_vs_nms12, "")
+plot_diff_se4 <- plot_diff_comparison(diff_croatia_vs_se4, "")
+plot_diff_eu15 <- plot_diff_comparison(diff_croatia_vs_eu15, "")
+
+# Display the plots
+print(plot_diff_nms8)
+print(plot_diff_nms12)
+print(plot_diff_se4)
+print(plot_diff_eu15)
+
+# Combine data for comparisons
+combine_for_plot <- function(...) {
+  combined <- bind_rows(...)
+  return(combined)
+}
+
+croatia_vs_nms8 <- combine_for_plot(gdp_croatia %>% mutate(group = "Croatia"), gdp_nms8 %>% mutate(group = "NMS8"))
+croatia_vs_nms12 <- combine_for_plot(gdp_croatia %>% mutate(group = "Croatia"), gdp_nms12 %>% mutate(group = "NMS12"))
+croatia_vs_se4 <- combine_for_plot(gdp_croatia %>% mutate(group = "Croatia"), gdp_se4 %>% mutate(group = "SE4"))
+croatia_vs_eu15 <- combine_for_plot(gdp_croatia %>% mutate(group = "Croatia"), gdp_eu15 %>% mutate(group = "EU15"))
+
+# Combine data for differences
+combine_for_plot_diff <- function(...) {
+  combined <- bind_rows(...)
+  return(combined)
+}
+
+diff_croatia_vs_groups <- combine_for_plot_diff(diff_croatia_vs_nms8, diff_croatia_vs_nms12, diff_croatia_vs_se4, diff_croatia_vs_eu15)
+
+# Add a column to indicate the type of data (comparison or difference)
+croatia_vs_nms8 <- croatia_vs_nms8 %>% mutate(type = "Usporedba", group_name = "NMS8")
+croatia_vs_nms12 <- croatia_vs_nms12 %>% mutate(type = "Usporedba", group_name = "NMS12")
+croatia_vs_se4 <- croatia_vs_se4 %>% mutate(type = "Usporedba", group_name = "SE4")
+croatia_vs_eu15 <- croatia_vs_eu15 %>% mutate(type = "Usporedba", group_name = "EU15")
+
+diff_croatia_vs_nms8 <- diff_croatia_vs_nms8 %>% mutate(type = "Razlika", group_name = "NMS8")
+diff_croatia_vs_nms12 <- diff_croatia_vs_nms12 %>% mutate(type = "Razlika", group_name = "NMS12")
+diff_croatia_vs_se4 <- diff_croatia_vs_se4 %>% mutate(type = "Razlika", group_name = "SE4")
+diff_croatia_vs_eu15 <- diff_croatia_vs_eu15 %>% mutate(type = "Razlika", group_name = "EU15")
+
+# Combine all data
+all_data <- bind_rows(croatia_vs_nms8, croatia_vs_nms12, croatia_vs_se4, croatia_vs_eu15,
+                      diff_croatia_vs_nms8, diff_croatia_vs_nms12, diff_croatia_vs_se4, diff_croatia_vs_eu15)
+
+plot_combined <- function(data) {
+  quarter_breaks <- seq.Date(from = min(data$date), to = max(data$date), by = "15 months")
+  
+  ggplot(data, aes(x = date, y = ifelse(type == "Usporedba", log_gdp_per_capita, diff_log_gdp_per_capita), color = group, linetype = group)) +
+    geom_line(size = 1.2) +
+    labs(title = "", x = "Datum", y = "(log) BDP per capita", color = "GEO", linetype = "GEO") +
+    theme_minimal() +
+    scale_color_manual(values = c("Croatia" = "black", 
+                                  "NMS8" = "gray20", 
+                                  "NMS12" = "gray40", 
+                                  "SE4" = "gray60", 
+                                  "EU15" = "gray80")) +
+    scale_linetype_manual(values = c("Croatia" = "solid", 
+                                     "NMS8" = "dashed", 
+                                     "NMS12" = "dotted", 
+                                     "SE4" = "dotdash", 
+                                     "EU15" = "longdash")) +
+    scale_x_date(breaks = quarter_breaks, 
+                 labels = function(x) paste0(format(x, "%Y"), "q", as.numeric(format(x, "%m")) %/% 3 + 1),
+                 expand = expansion(mult = c(0, 0.05))) +  
+    coord_cartesian(xlim = c(min(data$date), max(data$date) + 15)) +  
+    geom_vline(xintercept = as.numeric(quarter_breaks), color = "gray80", linetype = "solid") +  
+    theme(legend.position = "bottom", 
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +  
+    guides(color = guide_legend(title = "GEO:"), linetype = guide_legend(title = "GEO:")) +  
+    facet_wrap(~group_name + type, scales = "free_y", ncol = 2, 
+               labeller = labeller(group_name = function(labels) paste0("GEO: ", labels), 
+                                   type = function(labels) paste(labels)))
+}
+
+# Plot the combined data
+plot_combined_graph <- plot_combined(all_data)
+```
+
+```{r vizualizacija1, echo=FALSE, warning=FALSE, message=FALSE,, fig.width=10, fig.height=10}
+# Print the plot
+print(plot_combined_graph)
+
+
+```
+
+
+
+Grafikon 1 prikazuju kretanje BDP per capita u parovima zemalja obuhvaćenim analizom. Grafikon 1 prikazuje kretanje BDP per capita za Hrvatsku i EU15. Do ekonomske krize, Hrvatski BDP raste brže i približava se prosjeku EU15. Nakon 2008. dolazi do značajne korekcije BDP-a, a nakon sporog oporavka, EU15 ponovno raste, dok hrvatski dohodak stagnira ili pada.
+
+Grafikon 2 pokazuje kretanje BDP-a u Hrvatskoj i skupinama NMS8 i NMS12. Do 2007. sve skupine imaju sličan rast, nakon čega rast Hrvatskog dohotka usporava u usporedbi s NMS8 i NMS12. Nakon ekonomske krize, NMS8 i NMS12 ponovno rastu, dok Hrvatski dohodak stagnira ili pada.
+
+Grafikon 3 prikazuje kretanje BDP-a u Hrvatskoj i SE4 skupini. Vidljiv je brži rast Hrvatske do ekonomske krize 2008., nakon čega dolazi do stagnacije ili pada BDP-a. SE4 također pokazuje negativan trend nakon 2010.
+
+Grafikoni 4, 5 i 6 prikazuju kretanje diferencijala BDP-a između Hrvatske i EU15, NMS8, NMS12 i SE4. Grafikon 4 pokazuje smanjenje dohodovnih razlika između Hrvatske i EU15 do 2008., što ukazuje na konvergenciju. Nakon krize, dolazi do zastoja.
+
+Grafikon 5 prikazuje kretanje diferencijala BDP-a između Hrvatske i NMS8 te NMS12. Početno, Hrvatska i NMS8 imaju slične dohodovne razine. Nakon 2006. dolazi do trenda povećanja razlika. Tijekom ekonomske krize, razlike se smanjuju, ali nakon 2009. Hrvatski dohodak stagnira, dok NMS8 ponovno rastu. NMS12 prate sličan trend.
+
+Grafikon 6 prikazuje kretanje dohodovnih devijacija između Hrvatske i SE4. Vidljivo je dohodovno sustizanje do 2008., nakon čega dolazi do povećanja jaza. Nakon 2009., diferencijal stagnira ili ima blago pozitivan trend. 
+
+
+# Rezultati analize
+
+U ovom dijelu analize prikazani su rezultati testova dohodovne konvergencije između Hrvatske i grupa zemalja EU15, NMS8, NMS12 te SE4. Rezultati su dobiveni korištenjem proširenog Dickey-Fuller testa (ADF) te tri semi-parametarska procjenitelja temeljenih na modelu frakcijske integracije. Prvo su prikazani rezultati ljung box testa i autorkorelacijske funkcije ACF za 20 pomaka u prošlost i ADF testa, a zatim rezultati Robinsonovog procjenitelja, GPH te konačno P-GPH procjenitelja. Zbog niske robusnosti modela frakcijske integracije u odnosu na izbor broja ordinata u periodogramu, u Apendixu # prikazani su rezultati s različitim brojem ordinata.
+
+
+P-vrijednosti od 0 za sve vremenske zaostatke ukazuju na to da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom ispitivanom zaostatku. U praktičnim terminima, takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve ispitane vremenske zaostatke.Dosljedno nalazanje značajne autokorelacije na više zaostataka snažno sugerira prisutnost dugog pamćenja ili postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, možda neće biti dovoljni za hvatanje dinamike podataka. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput ARFIMA (AutoRegressive Fractionally Integrated Moving Average), mogli bi biti prikladniji za modeliranje i predviđanje ove vremenske serije.
+
+
+
+ACF (Autokorelacijska funkcija) prikazuje korelaciju vremenske serije sa vlastitim prošlim vrijednostima. ACF se prikazuje za različite vremenske zaostatke, a visina svake trake predstavlja koeficijent korelacije za taj zaostatak. ACF grafikoni za sve četiri grupe (EU15, NMS12, NMS8, SE4) pokazuju sličan obrazac: Visoka autokorelacija pri nižim zaostacima koja se postepeno smanjuje kako se zaostaci povećavaju. To ukazuje na to da vremenska serija za svaku grupu pokazuje značajnu autokorelaciju tijekom više vremenskih zaostataka. Sporo opadanje vrijednosti ACF-a sugerira prisutnost dugog pamćenja ili postojanosti u podacima. Međutim, zbog prisutnosti dugog pamćenja, potrebno je razmotriti specijalizirane modele koji uzimaju u obzir dugoročne ovisnosti.
+
+
+Tablica X prikazuje rezultate ADF testa jediničnog korijena u vremenskim serijama dohodovnog diferencijala između Hrvatske i četiri grupe zemalja. Nulta hipoteza nestacionarnosti nije mogla biti odbačena u niti jednom testiranom paru osim u diferencijalu između Hrvatske i zemalja južne Europe (SE4). Ovi rezultati sugeriraju da apsolutna niti uvjetna dohodovna konvergencija ne postoji u većini parova. Međutim, na razini signifikantnosti od 5%, ADF test potvrđuje apsolutnu dohodovnu konvergenciju između Hrvatske i SE4 grupe zemalja. Za RH-NMS8, ADF test statistike su relativno male i nisu značajne. Kritične vrijednosti za ADF test su obično oko -3,43 (1%), -2,86 (5%) i -2,57 (10%). Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu. To implicira da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS8 vjerojatno nestacionarna. Slično tome, ADF test statistike za RH-NMS12 također nisu značajne. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS12 vjerojatno nestacionarna. Za RH-SE4, ADF test statistika bez konstante i trenda (-4,13) je relativno velika po apsolutnoj vrijednosti i može biti značajna. Uspoređujući s kritičnim vrijednostima, -4,13 je manje od -3,43 (1%), što sugerira stacionarnost. Međutim, test statistike s konstantom i s konstantom i trendom nisu značajne. Ovi miješani rezultati sugeriraju da vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i SE4 može imati neke stacionarne komponente, ali nije jednoznačno stacionarna. Za RH-EU15, ADF test statistike su veće od onih za NMS8 i NMS12, ali još uvijek nisu tipično značajne na uobičajenim razinama pouzdanosti. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i EU15 vjerojatno nestacionarna. U sažetku, rezultati pokazuju da vremenske serije za RH-NMS8 i RH-NMS12 vjerojatno nisu stacionarne. Za RH-SE4 postoje neki dokazi koji sugeriraju potencijalnu stacionarnost kada se ne uključi konstanta i trend, ali ukupni rezultati su miješani. Za RH-EU15, vremenska serija je vjerojatno nestacionarna.
+
+
+
+
+
+Tablica 2 sadržava rezultate testa dohodovne konvergencije temeljem specifikacije modela frakcijske integracije i primjene Robinsonovog procjenitelja. Rezultati formalnih testova uvelike potkrjepljuju prethodni vizualni prikaz podataka o postojanju uvjetne dohodovne konvergencije između Hrvatske i EU15. Procjena parametra frakcijske integracije u vremenskoj seriji dohodovnog diferencijala između Hrvatske i EU15 iznosi z=0.9226z=0.9226. Ova procjena je robusna u odnosu na procijenjeni parametar prema GPH i P-GPH procjeniteljima (vidi Tablice 2 i 3). Dodatno, analiza robusnosti na temelju izbora različitog broja ordinata potkrjepljuje jednak zaključak, no u nešto slabijoj mjeri. Ovo sugerira da, unatoč određenoj varijabilnosti u rezultatima ovisno o broju korištenih ordinata, osnovni zaključak o postojanju uvjetne dohodovne konvergencije ostaje čvrst.
+
+
+
+Procjena parametra frakcijske integracije vezanog uz dohodovni diferencijal između Hrvatske i NMS8 iznosi z=1.1042. Procjena je robusna s obzirom na GPH i P-GPH procjenitelje u Tablicama 3 i 4 te na različite specifikacije broja ordinata u periodogramu (vidi Apendix 1). Pošto integracijski parametar izlazi iz intervala 0.5<z<10.5<z<1, zaključuje se kako je riječ o nestacionarnom procesu te kako dohodovne razine Hrvatske i NMS8 grupe međusobno divergiraju.
+
+
+
+Dohodovni diferencijal između Hrvatske i NMS12 skupine karakterizira parametar frakcijske integracijez=1.1896 (vidi Tablicu 2). Rezultati su robusni s obzirom na GPH i P-GPH procjenitelje u Tablicama 3. i 4., dok izbor različitog broja ordinata također potvrđuje dobiveni rezultat (vidi Apendix 1). U ovom slučaju je ponovno moguće zaključiti kako konvergencija dohodovnih razina Hrvatske i NMS12 grupe ne postoji.
+
+
+U Tablici 2 su prikazani rezultati procijenjenog parametra frakcijske integracije za dohodovni diferencijal Hrvatske i SE4. Integracijski parametar iznosi z=0.8990z=0.8990 i robusan je s obzirom na oba alternativna GPH i P-GPH procjenitelja (vidi Tablice 3 i 4). Analiza robusnosti prema različitom broju ordinata periodograma također potvrđuje dobiveni rezultat, ali u nešto blažem smislu (vidi Apendix 1). Moguće je zaključiti kako je dohodovni diferencijal između Hrvatske i SE4 skupine zemalja nestacionaran, ali prema prosjeku reverzibilan vremenska serija te se time potvrđuje postojanje uvjetne dohodovne konvergencije između Hrvatske i SE4 grupe.
+
+Rezultati podržavaju postojanje uvjetne dohodovne konvergencije između Hrvatske i EU15 te SE4, dok to nije potvrđeno za NMS8 i NMS12. Robusnost je najveća za dohodovni diferencijal između Hrvatske i NMS8 i NMS12, zatim Hrvatske i SE4, te konačno Hrvatske i EU15. Konvergencijska dinamika između Hrvatske i SE4 te Hrvatske i EU15 je izrazito spora, pri čemu je konvergencija s SE4 nešto brža. Parametar frakcijske integracije viši od 0.5 ukazuje na spor konvergencijski proces, dok vrijednost bliža jediničnoj ukazuje na sve sporiji proces.
+
+Implikacije rezultata su značajne za europske integracijske procese. Hrvatska je, unatoč kasnijem pristupanju, primjenjivala jednake mjere institucionalnog, pravnog i ekonomskog usklađivanja kao nove članice EU. Očekivalo se da će te zemlje formirati konvergencijski klub, no analiza nije potvrdila konvergenciju između Hrvatske i NMS8 i NMS12.
+
+Potvrda konvergencijske hipoteze za Hrvatsku i SE4 ukazuje da ekonomska integracija ne prati uvijek institucionalnu. Integracija SE4 i Hrvatske odvija se unutar šireg procesa, s negativnim ili nižim stopama rasta u SE4. To upućuje na konvergenciju Hrvatske prema zemljama s niskim stopama rasta. Brža konvergencija Hrvatske prema SE4 sugerira da se Hrvatska pridružuje konvergencijskom klubu zemalja južne Europe.
+
+# Zaključak
+
+
+Ovaj rad koristi analizu vremenskih serija za testiranje dohodovne konvergencije Hrvatske s različitim skupinama EU zemalja. Iako je postojeća literatura pokazala da dohodovna konvergencija postoji za neke, ali ne sve posttranzicijske europske zemlje prema prosjeku EU, ovaj rad proširuje tu literaturu analizom konvergencijskih obrazaca za Hrvatsku. Dodatno, rad smješta pitanje dohodovne konvergencije u kontekst europskih integracijskih procesa, analizirajući međusobnu konvergenciju između Hrvatske i prosjeka dohotka četiri grupe zemalja: EU15, NMS8, NMS12 i SE4. Tako se može zaključivati o smjeru ekonomske i institucionalne konvergencije unutar europskih integracija i pripadnosti Hrvatske određenim konvergencijskim klubovima.
+
+Rezultati testova frakcijske integracije dohodovnog diferencijala Hrvatske i četiri grupe zemalja pokazuju da konvergencija postoji između Hrvatske i EU15 te Hrvatske i SE4, dok nije potvrđena između Hrvatske i NMS8 te NMS12. Svi rezultati su robusni s obzirom na različite procjenitelje i izbore ordinata u empirijskom periodogramu. Analiza implicira da je konvergencija Hrvatske prema prosjeku EU15 i SE4 spor proces, ali nešto brži prema SE4. Zaključuje se da Hrvatska ne pripada konvergencijskom klubu novih članica, već konvergencijskim klubovima EU15 i SE4, pri čemu je konvergencija prema SE4 robusnija i brža nego prema EU15. Budući da EU15 i SE4 karakteriziraju spor ili negativan ekonomski rast, rezultati upućuju na potrebu za ekonomskim politikama koje bi ispravile ove trendove.
+
+
+
+
