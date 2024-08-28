@@ -827,21 +827,31 @@ robinson_croatia_vs_eu15 <- apply_robinson_estimator(diff_croatia_vs_eu15, "Croa
 robinson_results <- bind_rows(robinson_croatia_vs_nms8, robinson_croatia_vs_nms12, robinson_croatia_vs_se4, robinson_croatia_vs_eu15)
 
 # Print the Robinson test results
-print(robinson_results)
+kable(
+  robinson_results, 
+  caption = "Robinson Estimator Results for Income Convergence",
+  col.names = c("Group Name", "Robinson d", "P-value"),
+  digits = 4,
+  align = 'c'
+) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+add_header_above(c(" " = 1, "Estimation Results" = 2)) # Adds a header above the columns
 
 ```
 
 
 
-```{r fracr2 ,  echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=10, fig.height=6}
+```{r fracr2 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
 
 # GPH estimator
 gph_test_results <- function(data, group_name) {
   result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita)
-  #tibble(
-  #  group_name = group_name,
-  #  gph_d = result$d
-  #)
+  
+  # Return a tibble with group name and estimated d value
+  tibble(
+    group_name = group_name,
+    gph_d = result$d
+  )
 }
 
 gph_croatia_vs_nms8 <- gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8")
@@ -852,14 +862,23 @@ gph_croatia_vs_eu15 <- gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15")
 # Combine GPH test results
 gph_results <- bind_rows(gph_croatia_vs_nms8, gph_croatia_vs_nms12, gph_croatia_vs_se4, gph_croatia_vs_eu15)
 
+
 # Print the GPH test results
-print(gph_results)
+kable(
+  gph_results, 
+  caption = "GPH Estimator Results for Income Convergence",
+  col.names = c("Group Name", "GPH d"),
+  digits = 4,
+  align = 'c'
+) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+add_header_above(c(" " = 1, "Estimation Results" = 1))  # Adds a header above the columns
 
 ```
 
 
 
-```{r fracr3 ,  echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=10, fig.height=6}
+```{r fracr3 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
 # Define the P-GPH estimator function
 pgph_test_results <- function(data, group_name) {
   # Run the Phillips-Perron test (as a proxy for P-GPH)
@@ -896,7 +915,16 @@ pgph_croatia_vs_eu15 <- pgph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15
 pgph_results <- bind_rows(pgph_croatia_vs_nms8, pgph_croatia_vs_nms12, pgph_croatia_vs_se4, pgph_croatia_vs_eu15)
 
 # Print the P-GPH test results
-print(pgph_results)
+
+kable(
+  pgph_results, 
+  caption = "P-GPH Test Results for Income Convergence",
+  col.names = c("Group Name", "P-GPH Statistic", "Critical 1%", "Critical 5%", "Critical 10%"),
+  digits = 4,
+  align = 'c'
+) %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+add_header_above(c(" " = 1, "Estimation Results" = 4))  # Adds a header above the columns
 
 ```
 
