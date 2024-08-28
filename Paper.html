@@ -2004,13 +2004,199 @@ integracije. Prvo su prikazani rezultati ljung box testa i
 autorkorelacijske funkcije ACF za 20 pomaka u prošlost i ADF testa, a
 zatim rezultati Robinsonovog procjenitelja, GPH te konačno P-GPH
 procjenitelja.</p>
-<pre><code>## # A tibble: 4 × 11
-##   group lag_2 lag_4 lag_6 lag_8 lag_10 lag_12 lag_14 lag_16 lag_18 lag_20
-##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 EU15      0     0     0     0      0      0      0      0      0      0
-## 2 NMS12     0     0     0     0      0      0      0      0      0      0
-## 3 NMS8      0     0     0     0      0      0      0      0      0      0
-## 4 SE4       0     0     0     0      0      0      0      0      0      0</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Ljung-Box Test P-values for Every Second Lag
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="10">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Ljung-Box Test P-values
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Group
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 2
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 4
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 6
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 8
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 10
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 12
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 14
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 16
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 18
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Lag 20
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+EU15
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+NMS12
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+NMS8
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+SE4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+</tbody>
+</table>
 <p>P-vrijednosti od 0 za sve vremenske zaostatke ukazuju na to da se
 nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki
 zaostatak. To sugerira da postoji značajna autokorelacija na svakom
@@ -2040,13 +2226,85 @@ vrijednosti ACF-a sugerira prisutnost dugog pamćenja ili postojanosti u
 podacima. Međutim, zbog prisutnosti dugog pamćenja, potrebno je
 razmotriti specijalizirane modele koji uzimaju u obzir dugoročne
 ovisnosti.</p>
-<pre><code>## # A tibble: 4 × 4
-##   group_name `Bez kons/tr`  Konst `Konst/tr`
-##   &lt;chr&gt;              &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
-## 1 RH-NMS8           -0.184 -1.25       -1.53
-## 2 RH-NMS12          -0.135 -0.982      -1.53
-## 3 RH-SE4            -4.33  -0.951      -2.79
-## 4 RH-EU15           -3.03  -1.53       -2.14</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+ADF Test Results with Significance
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Group Name
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Bez kons/tr
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Konst
+</th>
+<th style="text-align:center;font-weight: bold;background-color: #D3D3D3 !important;">
+Konst/tr
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+RH-NMS8
+</td>
+<td style="text-align:center;">
+-0.1838
+</td>
+<td style="text-align:center;">
+-1.2475
+</td>
+<td style="text-align:center;">
+-1.5345
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+RH-NMS12
+</td>
+<td style="text-align:center;">
+-0.135
+</td>
+<td style="text-align:center;">
+-0.9822
+</td>
+<td style="text-align:center;">
+-1.53
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+RH-SE4
+</td>
+<td style="text-align:center;">
+-4.3255***
+</td>
+<td style="text-align:center;">
+-0.9515
+</td>
+<td style="text-align:center;">
+-2.7902*
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;">
+RH-EU15
+</td>
+<td style="text-align:center;">
+-3.0314**
+</td>
+<td style="text-align:center;">
+-1.5293
+</td>
+<td style="text-align:center;">
+-2.1391
+</td>
+</tr>
+</tbody>
+</table>
 <p>Tablica X prikazuje rezultate ADF testa jediničnog korijena u
 vremenskim serijama dohodovnog diferencijala između Hrvatske i četiri
 grupe zemalja. Nulta hipoteza nestacionarnosti nije mogla biti odbačena
@@ -2083,6 +2341,36 @@ stacionarne. Za RH-SE4 postoje neki dokazi koji sugeriraju potencijalnu
 stacionarnost kada se ne uključi konstanta i trend, ali ukupni rezultati
 su miješani. Za RH-EU15, vremenska serija je vjerojatno
 nestacionarna.</p>
+<pre><code>## Note: only one starting point.  Only one mode can be found -- this is now the default behavior.
+## Beginning the fits with 1 starting values.</code></pre>
+<pre><code>## Note: only one starting point.  Only one mode can be found -- this is now the default behavior.
+## Beginning the fits with 1 starting values.</code></pre>
+<pre><code>## Note: only one starting point.  Only one mode can be found -- this is now the default behavior.
+## Beginning the fits with 1 starting values.</code></pre>
+<pre><code>## Note: only one starting point.  Only one mode can be found -- this is now the default behavior.
+## Beginning the fits with 1 starting values.</code></pre>
+<pre><code>## # A tibble: 4 × 3
+##   group_name       robinson_d   p_value
+##   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Croatia vs NMS8       0.498 0        
+## 2 Croatia vs NMS12      0.498 3.37e-129
+## 3 Croatia vs SE4        0.498 7.77e-158
+## 4 Croatia vs EU15       0.498 7.01e-122</code></pre>
+</div>
+<div id="a-tibble-4-3" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> A tibble: 4 × 3</h1>
+<pre><code>  d sd.as sd.reg</code></pre>
+<p><dbl> <dbl> <dbl> 1 1.16 0.317 0.283 2 1.22 0.317 0.276 3 0.898 0.317
+0.0763 4 0.691 0.317 0.152</p>
+</div>
+<div id="a-tibble-4-5" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> A tibble: 4 × 5</h1>
+<p>group_name pgph_stat critical_1_percent critical_5_percent
+critical_10_percent <chr> <dbl> <lgl> <lgl> <lgl><br />
+1 Croatia v… -6.16 NA NA NA<br />
+2 Croatia v… -6.44 NA NA NA<br />
+3 Croatia v… -13.0 NA NA NA<br />
+4 Croatia v… -6.56 NA NA NA</p>
 <p>Tablica 2 sadržava rezultate testa dohodovne konvergencije temeljem
 specifikacije modela frakcijske integracije i primjene Robinsonovog
 procjenitelja. Rezultati formalnih testova uvelike potkrjepljuju
@@ -2139,8 +2427,8 @@ rasta u SE4. To upućuje na konvergenciju Hrvatske prema zemljama s
 niskim stopama rasta. Brža konvergencija Hrvatske prema SE4 sugerira da
 se Hrvatska pridružuje konvergencijskom klubu zemalja južne Europe.</p>
 </div>
-<div id="zaključak" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Zaključak</h1>
+<div id="zaključak" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Zaključak</h1>
 <p>Ovaj rad koristi analizu vremenskih serija za testiranje dohodovne
 konvergencije Hrvatske s različitim skupinama EU zemalja. Iako je
 postojeća literatura pokazala da dohodovna konvergencija postoji za

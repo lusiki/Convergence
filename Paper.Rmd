@@ -295,6 +295,9 @@ library(urca)
 library(fracdiff)
 library(arfima)
 library(gt)
+library(kableExtra)
+library(urca)
+
 
 ```
 
@@ -596,7 +599,7 @@ Grafikon 6 prikazuje kretanje dohodovnih devijacija između Hrvatske i SE4. Vidl
 U ovom dijelu analize prikazani su rezultati testova dohodovne konvergencije između Hrvatske i grupa zemalja EU15, NMS8, NMS12 te SE4. Rezultati su dobiveni korištenjem proširenog Dickey-Fuller testa (ADF) te tri semi-parametarska procjenitelja temeljenih na modelu frakcijske integracije. Prvo su prikazani rezultati ljung box testa i autorkorelacijske funkcije ACF za 20 pomaka u prošlost i ADF testa, a zatim rezultati Robinsonovog procjenitelja, GPH te konačno P-GPH procjenitelja. 
 
 
-```{r ljbx,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r ljbx,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 compute_ljung_box_every_second_lag <- function(data, max_lag = 20) {
   results <- list()
   for (lag in seq(2, max_lag, by = 2)) {  # Loop through every second lag
@@ -618,41 +621,31 @@ ljung_box_table_second_lags <- ljung_box_results_second_lags %>%
   arrange(group)
 
 # Display the results as a table
-print(ljung_box_table_second_lags)
+#print(ljung_box_table_second_lags)
 
-# Create a nice table visualization using gt
-ljung_box_gt_second_lags <- ljung_box_table_second_lags %>%
-  gt() %>%
-  tab_header(
-    title = "Ljung-Box Test P-values for Every Second Lag",
-    subtitle = "P-values for every second lag up to 20 for each group"
+# Create a nice table visualization 
+ljung_box_kable <- ljung_box_table_second_lags %>%
+  kable(
+    caption = "Ljung-Box Test P-values for Every Second Lag",
+    col.names = c("Group", "Lag 2", "Lag 4", "Lag 6", "Lag 8", "Lag 10",
+                  "Lag 12", "Lag 14", "Lag 16", "Lag 18", "Lag 20"),
+    format = "html",
+    digits = 3,
+    align = "c"
   ) %>%
-  cols_label(
-    group = "Group",
-    lag_2 = "Lag 2", lag_4 = "Lag 4", lag_6 = "Lag 6", lag_8 = "Lag 8", lag_10 = "Lag 10",
-    lag_12 = "Lag 12", lag_14 = "Lag 14", lag_16 = "Lag 16", lag_18 = "Lag 18", lag_20 = "Lag 20"
-  ) %>%
-  fmt_number(
-    columns = starts_with("lag_"),
-    decimals = 3
-  ) %>%
-  tab_options(
-    table.font.size = 12,
-    heading.title.font.size = 14,
-    heading.subtitle.font.size = 12,
-    column_labels.font.size = 12
-  )
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  column_spec(1, bold = TRUE) %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3") %>%
+  add_header_above(c(" " = 1, "Ljung-Box Test P-values" = 10))
 
-# Print the gt table
-#print(ljung_box_gt_second_lags)
+# Print the kable table
+print(ljung_box_kable)
 ```
-
-
 
 
 P-vrijednosti od 0 za sve vremenske zaostatke ukazuju na to da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom ispitivanom zaostatku. U praktičnim terminima, takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve ispitane vremenske zaostatke.Dosljedno nalazanje značajne autokorelacije na više zaostataka snažno sugerira prisutnost dugog pamćenja ili postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, možda neće biti dovoljni za hvatanje dinamike podataka. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput ARFIMA (AutoRegressive Fractionally Integrated Moving Average), mogli bi biti prikladniji za modeliranje i predviđanje ove vremenske serije.
 
-```{r acf,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r acf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 
 compute_acf <- function(data, max_lag = 20) {
   # Remove NA values before computing ACF
@@ -673,11 +666,6 @@ acf_results <- acf_results %>%
   unnest(cols = c(lag, acf))
 
 
-
-
-
-
-
 # Plot ACF values as bar charts with facets
 acf_facet_plot <- ggplot(acf_results, aes(x = lag, y = acf)) +
   geom_bar(stat = "identity", fill = "black", color = "white") +
@@ -690,11 +678,10 @@ print(acf_facet_plot)
 
 ```
 
-
 ACF (Autokorelacijska funkcija) prikazuje korelaciju vremenske serije sa vlastitim prošlim vrijednostima. ACF se prikazuje za različite vremenske zaostatke, a visina svake trake predstavlja koeficijent korelacije za taj zaostatak. ACF grafikoni za sve četiri grupe (EU15, NMS12, NMS8, SE4) pokazuju sličan obrazac: Visoka autokorelacija pri nižim zaostacima koja se postepeno smanjuje kako se zaostaci povećavaju. To ukazuje na to da vremenska serija za svaku grupu pokazuje značajnu autokorelaciju tijekom više vremenskih zaostataka. Sporo opadanje vrijednosti ACF-a sugerira prisutnost dugog pamćenja ili postojanosti u podacima. Međutim, zbog prisutnosti dugog pamćenja, potrebno je razmotriti specijalizirane modele koji uzimaju u obzir dugoročne ovisnosti.
 
 
-```{r adf, libs,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r adf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 # Calculate the differences between Croatia's log GDP per capita and the groups
 
 calculate_differences <- function(croatia_data, group_data) {
@@ -743,14 +730,60 @@ adf_results <- adf_results %>%
   )
 
 # Display the ADF test results table
-print(adf_results)
+#rint(adf_results)
+
+
+# Function to add stars based on significance
+add_significance_stars <- function(value) {
+  rounded_value <- round(value, 4)  # Round to 4 decimal places
+  if (value < -3.43) {
+    return(paste0(rounded_value, "***"))
+  } else if (value < -2.86) {
+    return(paste0(rounded_value, "**"))
+  } else if (value < -2.57) {
+    return(paste0(rounded_value, "*"))
+  } else {
+    return(as.character(rounded_value))
+  }
+}
+
+# Apply the significance function to each column
+adf_results_stars <- adf_results %>%
+  mutate(
+    `Bez kons/tr` = sapply(`Bez kons/tr`, add_significance_stars),
+    Konst = sapply(Konst, add_significance_stars),
+    `Konst/tr` = sapply(`Konst/tr`, add_significance_stars)
+  )
+
+# Create the kable table with significance stars
+adf_results_kable <- adf_results_stars %>%
+  select(group_name, `Bez kons/tr`, Konst, `Konst/tr`) %>%
+  kable(
+    caption = "ADF Test Results with Significance",
+    col.names = c("Group Name", "Bez kons/tr", "Konst", "Konst/tr"),
+    format = "html",
+    align = "c"
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  column_spec(1, bold = TRUE) %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3")
+
+# Print the table
+print(adf_results_kable)
+
+
+
+
+
+
+
 ```
 
 
 Tablica X prikazuje rezultate ADF testa jediničnog korijena u vremenskim serijama dohodovnog diferencijala između Hrvatske i četiri grupe zemalja. Nulta hipoteza nestacionarnosti nije mogla biti odbačena u niti jednom testiranom paru osim u diferencijalu između Hrvatske i zemalja južne Europe (SE4). Ovi rezultati sugeriraju da apsolutna niti uvjetna dohodovna konvergencija ne postoji u većini parova. Međutim, na razini signifikantnosti od 5%, ADF test potvrđuje apsolutnu dohodovnu konvergenciju između Hrvatske i SE4 grupe zemalja. Za RH-NMS8, ADF test statistike su relativno male i nisu značajne. Kritične vrijednosti za ADF test su obično oko -3,43 (1%), -2,86 (5%) i -2,57 (10%). Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu. To implicira da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS8 vjerojatno nestacionarna. Slično tome, ADF test statistike za RH-NMS12 također nisu značajne. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS12 vjerojatno nestacionarna. Za RH-SE4, ADF test statistika bez konstante i trenda (-4,13) je relativno velika po apsolutnoj vrijednosti i može biti značajna. Uspoređujući s kritičnim vrijednostima, -4,13 je manje od -3,43 (1%), što sugerira stacionarnost. Međutim, test statistike s konstantom i s konstantom i trendom nisu značajne. Ovi miješani rezultati sugeriraju da vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i SE4 može imati neke stacionarne komponente, ali nije jednoznačno stacionarna. Za RH-EU15, ADF test statistike su veće od onih za NMS8 i NMS12, ali još uvijek nisu tipično značajne na uobičajenim razinama pouzdanosti. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i EU15 vjerojatno nestacionarna. U sažetku, rezultati pokazuju da vremenske serije za RH-NMS8 i RH-NMS12 vjerojatno nisu stacionarne. Za RH-SE4 postoje neki dokazi koji sugeriraju potencijalnu stacionarnost kada se ne uključi konstanta i trend, ali ukupni rezultati su miješani. Za RH-EU15, vremenska serija je vjerojatno nestacionarna.
 
 
-```{r frac, eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r fracr1 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
 
 apply_robinson_estimator <- function(data, group_name) {
   result <- arfima::arfima(data$diff_log_gdp_per_capita)
@@ -796,6 +829,12 @@ robinson_results <- bind_rows(robinson_croatia_vs_nms8, robinson_croatia_vs_nms1
 # Print the Robinson test results
 print(robinson_results)
 
+```
+
+
+
+```{r fracr2 ,  echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=10, fig.height=6}
+
 # GPH estimator
 gph_test_results <- function(data, group_name) {
   result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita)
@@ -816,12 +855,38 @@ gph_results <- bind_rows(gph_croatia_vs_nms8, gph_croatia_vs_nms12, gph_croatia_
 # Print the GPH test results
 print(gph_results)
 
-# P-GPH estimator
+```
+
+
+
+```{r fracr3 ,  echo=FALSE, message=FALSE, warning=FALSE, results='asis', fig.width=10, fig.height=6}
+# Define the P-GPH estimator function
 pgph_test_results <- function(data, group_name) {
-  result <- urca::ur.pp(data$diff_log_gdp_per_capita, type = "Z-alpha", model = "trend")
+  # Run the Phillips-Perron test (as a proxy for P-GPH)
+  result <- ur.pp(data$diff_log_gdp_per_capita, type = "Z-alpha", model = "trend")
   
+  # Extract the test statistic
+  test_stat <- result@teststat[1]  # Z-alpha statistic
+  
+  # Check the structure of the cval object
+  critical_values <- result@cval
+  
+  # Safely extract critical values
+  critical_1_percent <- ifelse(nrow(critical_values) >= 1, critical_values[1, 1], NA)
+  critical_5_percent <- ifelse(nrow(critical_values) >= 2, critical_values[2, 1], NA)
+  critical_10_percent <- ifelse(nrow(critical_values) >= 3, critical_values[3, 1], NA)
+  
+  # Return as a data frame (or tibble)
+  tibble(
+    group_name = group_name,
+    pgph_stat = test_stat,
+    critical_1_percent = critical_1_percent,
+    critical_5_percent = critical_5_percent,
+    critical_10_percent = critical_10_percent
+  )
 }
 
+# Apply the P-GPH estimator to each group
 pgph_croatia_vs_nms8 <- pgph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8")
 pgph_croatia_vs_nms12 <- pgph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12")
 pgph_croatia_vs_se4 <- pgph_test_results(diff_croatia_vs_se4, "Croatia vs SE4")
@@ -833,15 +898,6 @@ pgph_results <- bind_rows(pgph_croatia_vs_nms8, pgph_croatia_vs_nms12, pgph_croa
 # Print the P-GPH test results
 print(pgph_results)
 
-# Combine all results into a single data frame for easy comparison
-all_results <- bind_rows(
-  robinson_results %>% mutate(test = "Robinson"),
-  gph_results %>% mutate(test = "GPH"),
-  pgph_results %>% mutate(test = "P-GPH")
-)
-
-# Print all results
-print(all_results)
 ```
 
 
