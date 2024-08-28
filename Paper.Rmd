@@ -284,7 +284,7 @@ gdje su vektori \( Z_t \) i \( Y_t \) definirani kao \( Z_t = \{Z_{1,t}, Z_{2,t}
 
 U istraživanju se koriste vremenske serije BDP-a Hrvatske i nekoliko skupina zemalja u razdoblju od početka 2000. do kraja 2023. godine: stare zemlje članice Europske Unije (EU15), nove zemlje članice (NMS8 i NMS12) te zemlje juga Europe (SE4).  Pri tome se koriste EUROSTAT-ovi podatci BDP-a na kvartalnoj frekvenciji u razdoblju od 2000q1 do 2023q4. EUROSTAT baza objavljuje podatke za kvartalni BDP bez korekcije za broj stanovnika pa je zbog toga je u ovom radu dodatno korištena IMF-ova baza World Economic Outlook iz koje su preuzeti godišnji podatci o stanovništvu u periodu od 2000. godine  do 2023. godine za sve zemlje obuhvaćene analizom. Godišnji podatci za stanovištvo su dezagregirani na kvartalne metodom kubične interpolacije nakon čega su korišteni u formiranju vremenske serije kvartalnog BDP per capita.
 
-```{r libs,  echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r libs,  echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 #### LIBS ----
 library(eurostat)
 library(tidyverse)
@@ -298,7 +298,7 @@ library(gt)
 
 ```
 
-```{r data, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+```{r data, echo=FALSE, message=FALSE, warning=FALSE,  results='hide'}
 
 #### DATA----
 # Define groups of countries
@@ -412,7 +412,7 @@ croatia_vs_se4 <- combine_for_plot(gdp_croatia, gdp_se4, "SE4")
 croatia_vs_eu15 <- combine_for_plot(gdp_croatia, gdp_eu15, "EU15")
 ```
 
-```{r vizualizacija, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+```{r vizualizacija, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE, results='hide'}
 # Define a custom date labeling function
 quarterly_labels <- function(x) {
   format(x, "%Yq%q")
@@ -569,7 +569,7 @@ plot_combined <- function(data) {
 plot_combined_graph <- plot_combined(all_data)
 ```
 
-```{r vizualizacija1, echo=FALSE, warning=FALSE, message=FALSE,, fig.width=10, fig.height=10}
+```{r vizualizacija1, echo=FALSE, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
 # Print the plot
 print(plot_combined_graph)
 
