@@ -177,7 +177,7 @@ Za proces koji ima tendenciju vraćanja prema prosječnoj vrijednosti je karakte
 
 Naime, parametar frakcijske integracije koji iznosi manje od jediničnog označava kako će šok vremenske serije \( \epsilon_t \) odumrijeti čak i u slučaju da je ta vremenska serija ima karakteristike nestacionaranog procesa. Mello i Guimaraes-Filho (2007) dokazuju kako je u tom slučaju koncept uvjetne dohodovne konvergencije dobro opisan frakcijski integriranim procesom (11).
 
-## Empirijska Specifikacija
+### Empirijska Specifikacija
 
 Empirijska specifikacija analize se u ovome radu odnosi na dohodovni diferencijal između Hrvatske i dohodovnog prosjeka četiri grupe zemalja EU15, NMS8, NMS12 te SE4. Budući da se prosjek grupe zemalja koristi kao konvergencijski benchmark, model (6) je potrebno preinačiti na način:
 
@@ -197,87 +197,10 @@ To implicira konačnu empirijsku specifikaciju dohodovnog diferencijala u obliku
 y_{HR,t} - y_{avg,t} = \frac{\theta(L)}{\phi(L)}(1-L)^{-z}\epsilon_t \tag{14}
 \]
 
-## Metodologija
+### Metodologija
 
-Tri su temeljna pristupa empirijske procjene modela frakcijske integracije: parametarski, semi-parametarski i neparametarski. U ovom radu će se koristiti semi-parametarski Robinsonov (1995a, 1995b) pristup (RLP), a u svrhu provjere robusnosti rezultata će se dodatno testirati dva semi-parametarska pristupa: Geweke i Porter-Hudak (1983) (GPH) te Phillips (1999a, 1999b) (P-GPH).
+Tri su temeljna pristupa empirijske procjene modela frakcijske integracije: parametarski, semi-parametarski i neparametarski. U ovom radu će se koristiti semi-parametarski Robinsonov (1995a, 1995b) pristup (RLP), a u svrhu provjere robusnosti rezultata će se dodatno testirati dva semi-parametarska pristupa: Geweke i Porter-Hudak (1983) (GPH) te Phillips (1999a, 1999b) (P-GPH). Razlog korištenja semi-parametarskih pristupa je što su oni prikladni za korekcije krivo specificiranih parametarskih modela. U okviru semi-parametarskog pristupa se mogu analizirati dugoročna svojstva vremenske serije uz pretpostavku da je njeno ponašanje u kratkom roku relativno nevažan element procesa i zbog toga nije potrebno eksplicitno modelirati njegovu kratkoročnu dinamiku.
 
-Razlog korištenja semi-parametarskih pristupa je što su oni prikladni za korekcije krivo specificiranih parametarskih modela. U okviru semi-parametarskog pristupa se mogu analizirati dugoročna svojstva vremenske serije uz pretpostavku da je njeno ponašanje u kratkom roku relativno nevažan element procesa i zbog toga nije potrebno eksplicitno modelirati njegovu kratkoročnu dinamiku.
-
-GPH test dobiva frakcijski parameter temeljem primjene metode najmanjih kvadrata na izraz:
-
-\[
-\log I(\lambda_j) = a + z \log \lambda_j + u_j \tag{15}
-\]
-
-pri čemu je log periodogram \( I(\lambda_j) \) izračunat preko fundamentalnih frekvencija:
-
-\[
-\lambda_j = \frac{2\pi j}{T}, \quad j = 1, 2, \dots, \left\lfloor \frac{T-1}{2} \right\rfloor \tag{16}
-\]
-
-Ako se definiraju \( X_t \) i diskretna Fourierova transformacija vremenske serije \( X_t \) kao \( D(\lambda_j) = \sum_{t=1}^{T} X_t e^{-i\lambda_j t} \), tada je frakcijski parametar \( z \) na temelju (15) dan kao:
-
-\[
-\hat{z} = -\frac{1}{4\pi^2}\sum_{j=1}^{m}\left[\log I(\lambda_j) - \log I(\lambda_{j-1})\right] \tag{17}
-\]
-
-Pri tome je izrazito važno kako izabrati broj Fourierovih frekvencija \( m \) pošto taj izbor može znatno utjecati na procijenjeni parametar frakcijske integracije. Zbog toga Phillips (1999a) razvija procjenitelj koji se ne zasniva na točno određenoj reprezentaciji Fourierove transformacije pod nultom hipotezom nestacionarnosti, već modificira GPH test tako da on odražava distribuciju frakcijskog parametra \( d \) pod nultom hipotezom jediničnog korijena.
-
-P-GPH test je baziran na jednakoj reprezentaciji diskretne Fourierove transformacije u slučaju jediničnog korijena:
-
-\[
-\log I(\lambda_j) = a + d \log \lambda_j + v_j \tag{18}
-\]
-
-te modificirane diskretne Fourierove transformacije:
-
-\[
-\log I(\lambda_j) = a + d \log \lambda_j + v_j + \theta \lambda_j^k \tag{19}
-\]
-
-gdje su ordinate periodograma definirane kao \( \hat{I}(\lambda_j) = \frac{1}{T} |D(\lambda_j)|^2 \). Log periodogram je sada moguće definirati regresijom na \( \log \lambda_j \), a korekcija frakcijskog parametra \( d \) je dana u obliku:
-
-\[
-\hat{d} = \frac{1}{4\pi^2}\sum_{j=1}^{m}\left[\log I(\lambda_j) - \log I(\lambda_{j-1})\right] \tag{20}
-\]
-
-gdje su \( \hat{I}(\lambda_j) \) i \( \hat{I}(\lambda_{j-1}) \) diskretne Fourierove transformacije za \( j \) i \( j-1 \).
-
-Phillips (1999) dokazuje kako je distribucija korigiranog parametra frakcijske integracije:
-
-\[
-\hat{d} \sim N(0, 1/T) \tag{21}
-\]
-
-tako da on ima jednaku distribuciju pod nultom hipotezom nestacionarnosti (\( d=1 \)) kao u slučaju stacionarnosti parametra kod GPH testa. P-GPH test se bazira na statistici koja je za slučaj jediničnog korijena definirana kao:
-
-\[
-T\hat{d}^2 \sim \chi^2(1) \tag{22}
-\]
-
-pri čemu su kritičke granice dane standardnom distribucijom. Test je zasnovan na alternativnoj hipotezi frakcijske integracije i konzistentan je u slučaju da je frakcijski parametar manji ili veći od jedinice (\( d < 1 \) ili \( d > 1 \)).
-
-## Robinsonov Pristup
-
-Robinsonov procjenitelj nije ograničen na korištenje malog dijela ordinata u periodogramu vremenske serije. Dodatno omogućava uklanjanje inicijalnih ordinata u periodogramu te dozvoljava uprosječivanje periodograma kroz sve susjedne frekvencije. Robinsonov multivarijatni procjenitelj parametra frakcijske integracije \( \hat{d} \) za skupinu \( G \) vremenskih serija \( \{X_{g,t}\}_{g=1}^{G} \) za \( g = 1, 2, \dots, G \) je dan u obliku:
-
-\[
-\hat{d}_g = \frac{1}{G}\sum_{g=1}^{G} \hat{d}_g \tag{23}
-\]
-
-te vrijedi i u univarijatnom slučaju. \( \hat{d}_g \) u modelu (23) označava \( G \)-dimenzionalni vektor sastavljen od \( G \) elemenata vektora \( \{X_{g,t}\}_{g=1}^{G} \) te se pretpostavlja da \( X_{g,t} \) prati matricu spektralne gustoće \( \Sigma(\lambda_j) \), gdje su \( g \) i \( h \) elementi dani kao:
-
-\[
-\Sigma_{gh}(\lambda_j) = \frac{1}{T}D_g(\lambda_j)D_h^*(\lambda_j)
-\]
-
-Model također pretpostavlja da \( \Sigma(\lambda_j) = \text{diag}\{\Sigma_{gg}(\lambda_j)\}_{g=1}^{G} \), kada \( g = h \), za \( g \neq h \), označava dijagonalni element matrice spektralne gustoće \( \Sigma_{gg}(\lambda_j) \) za slučaj \( d_g = d_h \) i \( \Sigma_{gh}(\lambda_j) = 0 \). Tada je metodom najmanjih kvadrata moguće procijeniti parametar frakcijske integracije \( \hat{d} \) te parametar \( \theta \) modelom:
-
-\[
-y_t = Z_t + \theta Y_t + \epsilon_t \tag{24}
-\]
-
-gdje su vektori \( Z_t \) i \( Y_t \) definirani kao \( Z_t = \{Z_{1,t}, Z_{2,t}, \dots, Z_{G,t}\} \) te \( Y_t = \{Y_{1,t}, Y_{2,t}, \dots, Y_{G,t}\} \) za ordinate \( m \) periodograma.
 
 
 # Korišteni podatci i stilizirane činjenice
@@ -838,6 +761,81 @@ kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive
 add_header_above(c(" " = 1, "Estimation Results" = 2)) # Adds a header above the columns
 
 ```
+
+
+```{r}
+clean_data <- na.omit(diff_croatia_vs_nms8$diff_log_gdp_per_capita)
+result <- fracdiff(clean_data)
+print(result$d)
+```
+
+
+
+
+
+
+
+```{r eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+library(rugarch)
+library(fracdiff)
+library(arfima)
+library(longmemo)
+
+# Example series (use your actual differenced series)
+diff_series_list <- list(
+  "Croatia vs NMS8" = na.omit(diff_croatia_vs_nms8$diff_log_gdp_per_capita),
+  "Croatia vs NMS12" = na.omit(diff_croatia_vs_nms12$diff_log_gdp_per_capita),
+  "Croatia vs SE4" = na.omit(diff_croatia_vs_se4$diff_log_gdp_per_capita),
+  "Croatia vs EU15" = na.omit(diff_croatia_vs_eu15$diff_log_gdp_per_capita)
+)
+
+# Initialize result storage
+results <- list()
+
+# Loop through each differenced series
+for (group_name in names(diff_series_list)) {
+  series <- diff_series_list[[group_name]]
+  
+  # Remove or handle missing values and ensure it's a time series
+  clean_series <- ts(na.omit(series))  # Ensure no NaNs and convert to time series
+
+  # Store results for this group
+  result_list <- list()
+
+  # Apply fracdiff()
+  fracdiff_result <- fracdiff(clean_series)
+  result_list$fracdiff_d <- fracdiff_result$d
+  
+  # Apply arfima() from arfima package
+  arfima_fit <- arfima(clean_series)
+  result_list$arfima_d <- arfima_fit$modes[[1]]$dfrac
+  
+  # Apply autoarfima() from rugarch package (simplified)
+  # IMPORTANT: Simplified function call for autoarfima
+  # autoarfima_fit <- autoarfima(clean_series)  # Removed the 'arfima = TRUE' argument
+  # result_list$autoarfima_d <- coef(autoarfima_fit)["d"]
+
+  # Apply GPHfit() from longmemo package (Geweke-Porter-Hudak)
+  gph_result <- GPHfit(clean_series)
+  result_list$gph_d <- gph_result$d
+
+  # Store results for this group
+  results[[group_name]] <- result_list
+}
+
+# Display the results
+results_df <- do.call(rbind, lapply(names(results), function(group) {
+  cbind(group, as.data.frame(t(results[[group]])))
+}))
+
+print(results_df)
+
+
+
+```
+
 
 
 
