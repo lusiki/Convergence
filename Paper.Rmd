@@ -219,7 +219,7 @@ library(fracdiff)
 library(arfima)
 library(gt)
 library(kableExtra)
-library(urca)
+
 
 
 ```
@@ -771,6 +771,42 @@ print(result$d)
 
 
 
+```{r}
+# Define a function to perform the fractional integration test and extract key stats
+perform_fractional_integration <- function(data, column, group_name) {
+  # Extract the specified column for testing
+  log_diff <- data[[column]]
+  
+  # Apply the fracdiff function to estimate the fractional differencing parameter
+  fd_result <- fracdiff(log_diff)
+  
+  # Extract the differencing parameter (d) and standard error
+  d_estimate <- fd_result$d
+  d_std_error <- sqrt(diag(fd_result$cov))[1]
+  
+  # Prepare a row of results for this group
+  result_row <- tibble(
+    group = group_name,
+    d_estimate = d_estimate,
+    d_std_error = d_std_error
+  )
+  
+  return(result_row)
+}
+
+# Now, apply the function to each dataset and bind the results together into a summary table
+fd_result_nms8 <- perform_fractional_integration(diff_croatia_vs_nms8, "diff_log_gdp_per_capita", "NMS8")
+fd_result_nms12 <- perform_fractional_integration(diff_croatia_vs_nms12, "diff_log_gdp_per_capita", "NMS12")
+fd_result_se4 <- perform_fractional_integration(diff_croatia_vs_se4, "diff_log_gdp_per_capita", "SE4")
+fd_result_eu15 <- perform_fractional_integration(diff_croatia_vs_eu15, "diff_log_gdp_per_capita", "EU15")
+
+# Combine results into a single table
+fractional_integration_summary <- bind_rows(fd_result_nms8, fd_result_nms12, fd_result_se4, fd_result_eu15)
+
+# Display the summary table
+print(fractional_integration_summary)
+
+```
 
 
 
@@ -876,7 +912,53 @@ add_header_above(c(" " = 1, "Estimation Results" = 1))  # Adds a header above th
 
 
 
+
+
 ```{r fracr3 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
+
+
+perform_gph <- function(data, column, group_name) {
+  # Extract the specified column for testing
+  log_diff <- data[[column]]
+  
+  # Define the Fourier frequencies and compute periodogram
+  n <- length(log_diff)
+  m <- floor(n^0.5)  # Choose the number of frequencies based on the rule of thumb
+  freqs <- 2 * pi * (1:m) / n
+  periodogram <- abs(fft(log_diff)[2:(m+1)])^2 / n
+  
+  # Perform the log-periodogram regression to estimate d
+  log_periodogram <- log(periodogram)
+  regression <- lm(log_periodogram ~ log(freqs))
+  
+  # Extract the fractional differencing parameter d
+  d_estimate <- -regression$coefficients[2] / 2
+  
+  # Prepare a row of results for this group
+  result_row <- tibble(
+    group = group_name,
+    d_estimate = d_estimate,
+    d_std_error = NA  # No easy standard error estimation in basic GPH
+  )
+  
+  return(result_row)
+}
+
+# Apply the function to your datasets
+fd_result_nms8_gph <- perform_gph(diff_croatia_vs_nms8, "diff_log_gdp_per_capita", "NMS8")
+fd_result_nms12_gph <- perform_gph(diff_croatia_vs_nms12, "diff_log_gdp_per_capita", "NMS12")
+fd_result_se4_gph <- perform_gph(diff_croatia_vs_se4, "diff_log_gdp_per_capita", "SE4")
+fd_result_eu15_gph <- perform_gph(diff_croatia_vs_eu15, "diff_log_gdp_per_capita", "EU15")
+
+# Combine results into a single table
+fractional_integration_summary_gph <- bind_rows(fd_result_nms8_gph, fd_result_nms12_gph, fd_result_se4_gph, fd_result_eu15_gph)
+
+# Display the summary table
+print(fractional_integration_summary_gph)
+```
+
+
+```{r fracr4 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
 # Define the P-GPH estimator function
 pgph_test_results <- function(data, group_name) {
   # Run the Phillips-Perron test (as a proxy for P-GPH)
