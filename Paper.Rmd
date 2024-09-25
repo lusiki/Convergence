@@ -706,307 +706,213 @@ print(adf_results_kable)
 Tablica X prikazuje rezultate ADF testa jediničnog korijena u vremenskim serijama dohodovnog diferencijala između Hrvatske i četiri grupe zemalja. Nulta hipoteza nestacionarnosti nije mogla biti odbačena u niti jednom testiranom paru osim u diferencijalu između Hrvatske i zemalja južne Europe (SE4). Ovi rezultati sugeriraju da apsolutna niti uvjetna dohodovna konvergencija ne postoji u većini parova. Međutim, na razini signifikantnosti od 5%, ADF test potvrđuje apsolutnu dohodovnu konvergenciju između Hrvatske i SE4 grupe zemalja. Za RH-NMS8, ADF test statistike su relativno male i nisu značajne. Kritične vrijednosti za ADF test su obično oko -3,43 (1%), -2,86 (5%) i -2,57 (10%). Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu. To implicira da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS8 vjerojatno nestacionarna. Slično tome, ADF test statistike za RH-NMS12 također nisu značajne. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i NMS12 vjerojatno nestacionarna. Za RH-SE4, ADF test statistika bez konstante i trenda (-4,13) je relativno velika po apsolutnoj vrijednosti i može biti značajna. Uspoređujući s kritičnim vrijednostima, -4,13 je manje od -3,43 (1%), što sugerira stacionarnost. Međutim, test statistike s konstantom i s konstantom i trendom nisu značajne. Ovi miješani rezultati sugeriraju da vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i SE4 može imati neke stacionarne komponente, ali nije jednoznačno stacionarna. Za RH-EU15, ADF test statistike su veće od onih za NMS8 i NMS12, ali još uvijek nisu tipično značajne na uobičajenim razinama pouzdanosti. Budući da su sve test statistike veće od kritičnih vrijednosti, ne možemo odbaciti nul hipotezu o jediničnom korijenu, što znači da je vremenska serija razlika u logaritamskom BDP-u po stanovniku između Hrvatske i EU15 vjerojatno nestacionarna. U sažetku, rezultati pokazuju da vremenske serije za RH-NMS8 i RH-NMS12 vjerojatno nisu stacionarne. Za RH-SE4 postoje neki dokazi koji sugeriraju potencijalnu stacionarnost kada se ne uključi konstanta i trend, ali ukupni rezultati su miješani. Za RH-EU15, vremenska serija je vjerojatno nestacionarna.
 
 
-```{r fracr1 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
-
-apply_robinson_estimator <- function(data, group_name) {
-  result <- arfima::arfima(data$diff_log_gdp_per_capita)
-  
-  # Extract the fractional differencing parameter (dfrac)
-  d.f <- result$modes[[1]]$dfrac
-  se.d.f <- result$modes[[1]]$se[1]  # Assuming the standard error for dfrac is the first element in the se vector
-  
-  # Check if the standard error is available
-  if (is.null(se.d.f)) {
-    se.d.f <- NA
-    p.value <- NA
-  } else {
-    # Calculate the t-statistic for d.f
-    t.stat <- d.f / se.d.f
-    
-    # Calculate the p-value for the t-statistic (two-tailed test)
-    p.value <- 2 * pt(-abs(t.stat), df = length(data$diff_log_gdp_per_capita) - 1)
-  }
-  
-  tibble(
-    group_name = group_name,
-    robinson_d = d.f,
-    p_value = p.value
-  )
-}
-
-# Calculate differences for each group
-diff_croatia_vs_nms8 <- calculate_differences(gdp_croatia, gdp_nms8)
-diff_croatia_vs_nms12 <- calculate_differences(gdp_croatia, gdp_nms12)
-diff_croatia_vs_se4 <- calculate_differences(gdp_croatia, gdp_se4)
-diff_croatia_vs_eu15 <- calculate_differences(gdp_croatia, gdp_eu15)
-
-# Apply Robinson estimator to each group
-robinson_croatia_vs_nms8 <- apply_robinson_estimator(diff_croatia_vs_nms8, "Croatia vs NMS8")
-robinson_croatia_vs_nms12 <- apply_robinson_estimator(diff_croatia_vs_nms12, "Croatia vs NMS12")
-robinson_croatia_vs_se4 <- apply_robinson_estimator(diff_croatia_vs_se4, "Croatia vs SE4")
-robinson_croatia_vs_eu15 <- apply_robinson_estimator(diff_croatia_vs_eu15, "Croatia vs EU15")
-
-# Combine Robinson test results
-robinson_results <- bind_rows(robinson_croatia_vs_nms8, robinson_croatia_vs_nms12, robinson_croatia_vs_se4, robinson_croatia_vs_eu15)
-
-# Print the Robinson test results
-kable(
-  robinson_results, 
-  caption = "Robinson Estimator Results for Income Convergence",
-  col.names = c("Group Name", "Robinson d", "P-value"),
-  digits = 4,
-  align = 'c'
-) %>%
-kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
-add_header_above(c(" " = 1, "Estimation Results" = 2)) # Adds a header above the columns
-
-```
-
-
-```{r}
-clean_data <- na.omit(diff_croatia_vs_nms8$diff_log_gdp_per_capita)
-result <- fracdiff(clean_data)
-print(result$d)
-```
-
-
-
-```{r}
-# Define a function to perform the fractional integration test and extract key stats
-perform_fractional_integration <- function(data, column, group_name) {
-  # Extract the specified column for testing
-  log_diff <- data[[column]]
-  
-  # Apply the fracdiff function to estimate the fractional differencing parameter
-  fd_result <- fracdiff(log_diff)
-  
-  # Extract the differencing parameter (d) and standard error
-  d_estimate <- fd_result$d
-  d_std_error <- sqrt(diag(fd_result$cov))[1]
-  
-  # Prepare a row of results for this group
-  result_row <- tibble(
-    group = group_name,
-    d_estimate = d_estimate,
-    d_std_error = d_std_error
-  )
-  
-  return(result_row)
-}
-
-# Now, apply the function to each dataset and bind the results together into a summary table
-fd_result_nms8 <- perform_fractional_integration(diff_croatia_vs_nms8, "diff_log_gdp_per_capita", "NMS8")
-fd_result_nms12 <- perform_fractional_integration(diff_croatia_vs_nms12, "diff_log_gdp_per_capita", "NMS12")
-fd_result_se4 <- perform_fractional_integration(diff_croatia_vs_se4, "diff_log_gdp_per_capita", "SE4")
-fd_result_eu15 <- perform_fractional_integration(diff_croatia_vs_eu15, "diff_log_gdp_per_capita", "EU15")
-
-# Combine results into a single table
-fractional_integration_summary <- bind_rows(fd_result_nms8, fd_result_nms12, fd_result_se4, fd_result_eu15)
-
-# Display the summary table
-print(fractional_integration_summary)
-
-```
-
-
-
-
-```{r eval=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
-
-
-library(rugarch)
-library(fracdiff)
-library(arfima)
-library(longmemo)
-
-# Example series (use your actual differenced series)
-diff_series_list <- list(
-  "Croatia vs NMS8" = na.omit(diff_croatia_vs_nms8$diff_log_gdp_per_capita),
-  "Croatia vs NMS12" = na.omit(diff_croatia_vs_nms12$diff_log_gdp_per_capita),
-  "Croatia vs SE4" = na.omit(diff_croatia_vs_se4$diff_log_gdp_per_capita),
-  "Croatia vs EU15" = na.omit(diff_croatia_vs_eu15$diff_log_gdp_per_capita)
-)
-
-# Initialize result storage
-results <- list()
-
-# Loop through each differenced series
-for (group_name in names(diff_series_list)) {
-  series <- diff_series_list[[group_name]]
-  
-  # Remove or handle missing values and ensure it's a time series
-  clean_series <- ts(na.omit(series))  # Ensure no NaNs and convert to time series
-
-  # Store results for this group
-  result_list <- list()
-
-  # Apply fracdiff()
-  fracdiff_result <- fracdiff(clean_series)
-  result_list$fracdiff_d <- fracdiff_result$d
-  
-  # Apply arfima() from arfima package
-  arfima_fit <- arfima(clean_series)
-  result_list$arfima_d <- arfima_fit$modes[[1]]$dfrac
-  
-  # Apply autoarfima() from rugarch package (simplified)
-  # IMPORTANT: Simplified function call for autoarfima
-  # autoarfima_fit <- autoarfima(clean_series)  # Removed the 'arfima = TRUE' argument
-  # result_list$autoarfima_d <- coef(autoarfima_fit)["d"]
-
-  # Apply GPHfit() from longmemo package (Geweke-Porter-Hudak)
-  gph_result <- GPHfit(clean_series)
-  result_list$gph_d <- gph_result$d
-
-  # Store results for this group
-  results[[group_name]] <- result_list
-}
-
-# Display the results
-results_df <- do.call(rbind, lapply(names(results), function(group) {
-  cbind(group, as.data.frame(t(results[[group]])))
-}))
-
-print(results_df)
-
-
-
-```
-
 
 
 
 ```{r fracr2 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
-
-# GPH estimator
-gph_test_results <- function(data, group_name) {
-  result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita)
+# Function to apply different estimators (fdGPH, fdSperio, fracdiff)
+gph_test_results <- function(data, group_name, bandwidth, estimator) {
+  if (estimator == "fdGPH") {
+    # Apply the GPH estimator with a specified bandwidth
+    result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita, bandw.exp = bandwidth)
+    d_value <- result$d
+  } else if (estimator == "fdSperio") {
+    # Apply the Sperio estimator
+    result <- fracdiff::fdSperio(data$diff_log_gdp_per_capita)
+    d_value <- result$d
+  } else if (estimator == "fracdiff") {
+    # Apply the fracdiff MLE estimator
+    result <- fracdiff::fracdiff(data$diff_log_gdp_per_capita)
+    d_value <- result$d
+  }
   
-  # Return a tibble with group name and estimated d value
+  # Return a tibble with group name, estimated d value, and bandwidth or method used
   tibble(
     group_name = group_name,
-    gph_d = result$d
+    gph_d = d_value,
+    bandwidth = bandwidth
   )
 }
 
-gph_croatia_vs_nms8 <- gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8")
-gph_croatia_vs_nms12 <- gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12")
-gph_croatia_vs_se4 <- gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4")
-gph_croatia_vs_eu15 <- gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15")
+# Define bandwidths and methods
+bandwidths <- c(0.4 , 0.5, 0.6, 0.7, 0.8, 0.9)
+methods <- c("fdGPH", "fdSperio", "fracdiff")
 
-# Combine GPH test results
-gph_results <- bind_rows(gph_croatia_vs_nms8, gph_croatia_vs_nms12, gph_croatia_vs_se4, gph_croatia_vs_eu15)
+# For each estimator, apply the test to different groups and bandwidths
 
+# GPH Estimator (fdGPH)
+gph_croatia_vs_nms8_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8", .x, "fdGPH"))
+gph_croatia_vs_nms12_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12", .x, "fdGPH"))
+gph_croatia_vs_se4_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4", .x, "fdGPH"))
+gph_croatia_vs_eu15_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15", .x, "fdGPH"))
 
-# Print the GPH test results
+gph_results_long_fdGPH <- bind_rows(gph_croatia_vs_nms8_fdGPH, gph_croatia_vs_nms12_fdGPH, gph_croatia_vs_se4_fdGPH, gph_croatia_vs_eu15_fdGPH)
+gph_results_wide_fdGPH <- gph_results_long_fdGPH %>%
+  tidyr::pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "Bandwidth_")
+
+# Sperio Estimator (fdSperio)
+gph_croatia_vs_nms8_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8", .x, "fdSperio"))
+gph_croatia_vs_nms12_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12", .x, "fdSperio"))
+gph_croatia_vs_se4_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4", .x, "fdSperio"))
+gph_croatia_vs_eu15_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15", .x, "fdSperio"))
+
+gph_results_long_fdSperio <- bind_rows(gph_croatia_vs_nms8_fdSperio, gph_croatia_vs_nms12_fdSperio, gph_croatia_vs_se4_fdSperio, gph_croatia_vs_eu15_fdSperio)
+gph_results_wide_fdSperio <- gph_results_long_fdSperio %>%
+  tidyr::pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "Bandwidth_")
+
+# Fracdiff Estimator (fracdiff)
+gph_croatia_vs_nms8_fracdiff <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8", .x, "fracdiff"))
+gph_croatia_vs_nms12_fracdiff <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12", .x, "fracdiff"))
+gph_croatia_vs_se4_fracdiff <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4", .x, "fracdiff"))
+gph_croatia_vs_eu15_fracdiff <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15", .x, "fracdiff"))
+
+gph_results_long_fracdiff <- bind_rows(gph_croatia_vs_nms8_fracdiff, gph_croatia_vs_nms12_fracdiff, gph_croatia_vs_se4_fracdiff, gph_croatia_vs_eu15_fracdiff)
+gph_results_wide_fracdiff <- gph_results_long_fracdiff %>%
+  tidyr::pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "Bandwidth_")
+
+# Create and display tables for each estimator
+
+# GPH Estimator Table
 kable(
-  gph_results, 
-  caption = "GPH Estimator Results for Income Convergence",
-  col.names = c("Group Name", "GPH d"),
+  gph_results_wide_fdGPH, 
+  caption = "GPH Estimator (fdGPH) Results for Income Convergence by Bandwidth",
+  col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
   digits = 4,
   align = 'c'
 ) %>%
-kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
-add_header_above(c(" " = 1, "Estimation Results" = 1))  # Adds a header above the columns
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  add_header_above(c(" " = 1, "Estimation Results by Bandwidth" = length(bandwidths)))
 
-```
-
-
-
-
-
-```{r fracr3 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
-
-
-perform_gph <- function(data, column, group_name) {
-  # Extract the specified column for testing
-  log_diff <- data[[column]]
-  
-  # Define the Fourier frequencies and compute periodogram
-  n <- length(log_diff)
-  m <- floor(n^0.5)  # Choose the number of frequencies based on the rule of thumb
-  freqs <- 2 * pi * (1:m) / n
-  periodogram <- abs(fft(log_diff)[2:(m+1)])^2 / n
-  
-  # Perform the log-periodogram regression to estimate d
-  log_periodogram <- log(periodogram)
-  regression <- lm(log_periodogram ~ log(freqs))
-  
-  # Extract the fractional differencing parameter d
-  d_estimate <- -regression$coefficients[2] / 2
-  
-  # Prepare a row of results for this group
-  result_row <- tibble(
-    group = group_name,
-    d_estimate = d_estimate,
-    d_std_error = NA  # No easy standard error estimation in basic GPH
-  )
-  
-  return(result_row)
-}
-
-# Apply the function to your datasets
-fd_result_nms8_gph <- perform_gph(diff_croatia_vs_nms8, "diff_log_gdp_per_capita", "NMS8")
-fd_result_nms12_gph <- perform_gph(diff_croatia_vs_nms12, "diff_log_gdp_per_capita", "NMS12")
-fd_result_se4_gph <- perform_gph(diff_croatia_vs_se4, "diff_log_gdp_per_capita", "SE4")
-fd_result_eu15_gph <- perform_gph(diff_croatia_vs_eu15, "diff_log_gdp_per_capita", "EU15")
-
-# Combine results into a single table
-fractional_integration_summary_gph <- bind_rows(fd_result_nms8_gph, fd_result_nms12_gph, fd_result_se4_gph, fd_result_eu15_gph)
-
-# Display the summary table
-print(fractional_integration_summary_gph)
-```
-
-
-```{r fracr4 ,  echo=FALSE, message=FALSE, warning=FALSE,  fig.width=10, fig.height=6}
-# Define the P-GPH estimator function
-pgph_test_results <- function(data, group_name) {
-  # Run the Phillips-Perron test (as a proxy for P-GPH)
-  result <- ur.pp(data$diff_log_gdp_per_capita, type = "Z-alpha", model = "trend")
-  
-  # Extract the test statistic
-  test_stat <- result@teststat[1]  # Z-alpha statistic
-  
-  # Check the structure of the cval object
-  critical_values <- result@cval
-  
-  # Safely extract critical values
-  critical_1_percent <- ifelse(nrow(critical_values) >= 1, critical_values[1, 1], NA)
-  critical_5_percent <- ifelse(nrow(critical_values) >= 2, critical_values[2, 1], NA)
-  critical_10_percent <- ifelse(nrow(critical_values) >= 3, critical_values[3, 1], NA)
-  
-  # Return as a data frame (or tibble)
-  tibble(
-    group_name = group_name,
-    pgph_stat = test_stat,
-    critical_1_percent = critical_1_percent,
-    critical_5_percent = critical_5_percent,
-    critical_10_percent = critical_10_percent
-  )
-}
-
-# Apply the P-GPH estimator to each group
-pgph_croatia_vs_nms8 <- pgph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8")
-pgph_croatia_vs_nms12 <- pgph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12")
-pgph_croatia_vs_se4 <- pgph_test_results(diff_croatia_vs_se4, "Croatia vs SE4")
-pgph_croatia_vs_eu15 <- pgph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15")
-
-# Combine P-GPH test results
-pgph_results <- bind_rows(pgph_croatia_vs_nms8, pgph_croatia_vs_nms12, pgph_croatia_vs_se4, pgph_croatia_vs_eu15)
-
-# Print the P-GPH test results
-
+# Sperio Estimator Table
 kable(
-  pgph_results, 
-  caption = "P-GPH Test Results for Income Convergence",
-  col.names = c("Group Name", "P-GPH Statistic", "Critical 1%", "Critical 5%", "Critical 10%"),
+  gph_results_wide_fdSperio, 
+  caption = "GPH Estimator (fdSperio) Results for Income Convergence by Bandwidth",
+  col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
   digits = 4,
   align = 'c'
 ) %>%
-kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
-add_header_above(c(" " = 1, "Estimation Results" = 4))  # Adds a header above the columns
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  add_header_above(c(" " = 1, "Estimation Results by Bandwidth" = length(bandwidths)))
+
+
 
 ```
+
+
+
+```{r}
+# Function to add significance stars based on p-value
+add_significance_stars <- function(p_value) {
+  if (p_value <= 0.001) {
+    return("***")
+  } else if (p_value <= 0.01) {
+    return("**")
+  } else if (p_value <= 0.05) {
+    return("*")
+  } else if (p_value <= 0.1) {
+    return(".")
+  } else {
+    return("")
+  }
+}
+
+# Function to apply different estimators (fdGPH, fdSperio) and calculate significance
+gph_test_results <- function(data, group_name, bandwidth, estimator) {
+  if (estimator == "fdGPH") {
+    # Apply the GPH estimator with a specified bandwidth
+    result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita, bandw.exp = bandwidth)
+    d_value <- result$d
+  } else if (estimator == "fdSperio") {
+    # Apply the Sperio estimator
+    result <- fracdiff::fdSperio(data$diff_log_gdp_per_capita)
+    d_value <- result$d
+  }
+  
+  # Calculate the number of observations (n)
+  n <- length(data$diff_log_gdp_per_capita)
+  
+  # Asymptotic standard error of the estimated d value
+  se_d <- 1 / sqrt(n)
+  
+  # Z-score and p-value for significance testing
+  z_score <- d_value / se_d
+  p_value <- 2 * (1 - pnorm(abs(z_score)))  # Two-tailed p-value
+  
+  # Add significance stars
+  significance <- add_significance_stars(p_value)
+  
+  # Return a tibble with group name, estimated d value, significance, and bandwidth
+  tibble(
+    group_name = group_name,
+    gph_d = paste0(round(d_value, 4), significance),  # Append significance stars to d
+    bandwidth = bandwidth
+  )
+}
+
+# Define bandwidths and methods
+bandwidths <- c(0.4 , 0.5, 0.6, 0.7, 0.8, 0.9)
+methods <- c("fdGPH", "fdSperio")
+
+# Apply the test to different groups and bandwidths
+
+# GPH Estimator (fdGPH)
+gph_croatia_vs_nms8_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8", .x, "fdGPH"))
+gph_croatia_vs_nms12_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12", .x, "fdGPH"))
+gph_croatia_vs_se4_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4", .x, "fdGPH"))
+gph_croatia_vs_eu15_fdGPH <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15", .x, "fdGPH"))
+
+gph_results_long_fdGPH <- bind_rows(gph_croatia_vs_nms8_fdGPH, gph_croatia_vs_nms12_fdGPH, gph_croatia_vs_se4_fdGPH, gph_croatia_vs_eu15_fdGPH)
+gph_results_wide_fdGPH <- gph_results_long_fdGPH %>%
+  tidyr::pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "Bandwidth_")
+
+# Sperio Estimator (fdSperio)
+gph_croatia_vs_nms8_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms8, "Croatia vs NMS8", .x, "fdSperio"))
+gph_croatia_vs_nms12_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_nms12, "Croatia vs NMS12", .x, "fdSperio"))
+gph_croatia_vs_se4_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_se4, "Croatia vs SE4", .x, "fdSperio"))
+gph_croatia_vs_eu15_fdSperio <- purrr::map_df(bandwidths, ~ gph_test_results(diff_croatia_vs_eu15, "Croatia vs EU15", .x, "fdSperio"))
+
+gph_results_long_fdSperio <- bind_rows(gph_croatia_vs_nms8_fdSperio, gph_croatia_vs_nms12_fdSperio, gph_croatia_vs_se4_fdSperio, gph_croatia_vs_eu15_fdSperio)
+gph_results_wide_fdSperio <- gph_results_long_fdSperio %>%
+  tidyr::pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "Bandwidth_")
+
+# Create and display tables for each estimator
+
+# GPH Estimator Table
+kable(
+  gph_results_wide_fdGPH, 
+  caption = "GPH Estimator (fdGPH) Results for Income Convergence by Bandwidth with Significance",
+  col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
+  digits = 4,
+  align = 'c'
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  add_header_above(c(" " = 1, "Estimation Results by Bandwidth" = length(bandwidths)))
+
+# Sperio Estimator Table
+kable(
+  gph_results_wide_fdSperio, 
+  caption = "GPH Estimator (fdSperio) Results for Income Convergence by Bandwidth with Significance",
+  col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
+  digits = 4,
+  align = 'c'
+) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
+  add_header_above(c(" " = 1, "Estimation Results by Bandwidth" = length(bandwidths)))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
