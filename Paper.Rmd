@@ -42,9 +42,6 @@ Rad istražuje dohodovnu konvergenciju Hrvatske prema nekoliko skupina europskih
 
 U nastavku rada se daje pregled najvažnijih aspekata literature o dohodovnoj konvergenciji te pregled radova koji su analizirali konvergenciju dohotka u europskim posttranzicijskim zemljama. U trećem dijelu se opisuju koncepti dohodovne konvergencije u okviru analize vremenskih serija te se opisuje metodologija frakcijske integracije i procjenitelji korišteni u analizi. U četvrtom dijelu su opisane stilizirane činjenice o konvergencijskom procesu Republike Hrvatske prema dohodovnim razinama grupa EU15, NMS8, NMS12 te SE4, a u petom dijelu su prikazani rezultati istraživanja. U posljednjem dijelu se donose zaključci analize.
 
-
-
-
 # Pregled literature o dohodovnoj konvergenciji
 
 Rana konvergencijska literatura je bila dominantno usmjerena na testiranje ekonomske teorije rasta (Barro i Sala i Martin, 1990; 1991; Barro, 1991; Mankiw et al., 1992), uglavnom koristeći prostornu (engl. cross-section) regresijsku analizu. Dio radova je koristio i različite procjenitelje panel podataka (Knight et al., 1993; Islam, 1995; Caselli et al., 1996; Lee et al., 1998; Bond et al., 2001). Nalazi su pretežito potvrdili postojanje apsolutne ili uvjetne konvergencije u globalnom uzorku zemalja u rasponu od 2% do 4%, no nije postignut jedinstven konsenzus oko dohodovne konvergencije u globalnom uzorku zemalja. Nakon toga se literatura usmjerila na primjenu različitih metoda u testiranju dohodovne konvergencije. Bernard i Durlauf (1991) započinju analizu dohodovne konvergencije u okviru metodologije vremenskih serija. Bernard i Durlauf (1996) pokazuju da tehnike vremenskih serija imaju poželjnija empirijska svojstva od prostorne analize dohodovne konvergencije. U radovima Bernard i Durlauf (1991, 1995) autori uvode termin stohastičke konvergencije, koji se odnosi na testiranje jediničnog korijena u razlici BDP per capita vremenskih serija dviju zemalja. 
@@ -65,10 +62,7 @@ Brüggemann i Trenkler (2007) koriste test jediničnog korijena za analizu dohod
 
 Nekoliko istraživanja je potvrdilo dohodovnu konvergenciju posttranzicijskih zemalja prema europskom centru (Monfort i sur., 2013; Próchniak i Witkowski, 2013; Szeles i Marinescu, 2010) u razdoblju do zadnjeg proširenja Europske Unije, a dokazi potvrđuju nastavak konvergencijskog procesa i nakon globalne financijske krize (Åslund, 2018). Literatura općenito nije postigla konsenzus o tome hoće li proces konvergencije posttranzicijskih zemalja biti završen (Papi et al., 2018), no dokazi upućuju da je članstvo u Europskoj Uniji bilo važno za nastavak približavanja tih zemalja europskom dohodovnom prosjeku (Rapacki, 2019).
 
-
 # Koncepti dohodovne konvergencij u okviru metodologije vremenskih serija i frakcijska integracija
-
-
 
 U metodologiji vremenskih serija poznata su dva temeljna konvergencijska koncepta: apsolutna i uvjetna konvergencija. Dohodovna konvergencija može se definirati kao:
 
@@ -129,9 +123,7 @@ iz čega slijedi da svaka situacija gdje \( \beta = 0 \) implicira konvergenciju
 \]
 
 
-
 ## Frakcijska integracija
-
 
 Koncept frakcijske integracije je uveden u makroekonometrijsku literaturu radovima Granger (1980, 1981), Granger i Joyeux (1980), te Hosking (1981). Ovim konceptom se nastojalo opisati snažno autokorelirane procese za koje je karakteristična povezanost među međusobno udaljenim realizacijama. 
 
@@ -201,11 +193,9 @@ y_{HR,t} - y_{avg,t} = \frac{\theta(L)}{\phi(L)}(1-L)^{-z}\epsilon_t \tag{14}
 
 Tri su temeljna pristupa empirijske procjene modela frakcijske integracije: parametarski, semi-parametarski i neparametarski. U ovom radu će se koristiti semi-parametarski Robinsonov (1995a, 1995b) pristup (RLP), a u svrhu provjere robusnosti rezultata će se dodatno testirati dva semi-parametarska pristupa: Geweke i Porter-Hudak (1983) (GPH) te Phillips (1999a, 1999b) (P-GPH). Razlog korištenja semi-parametarskih pristupa je što su oni prikladni za korekcije krivo specificiranih parametarskih modela. U okviru semi-parametarskog pristupa se mogu analizirati dugoročna svojstva vremenske serije uz pretpostavku da je njeno ponašanje u kratkom roku relativno nevažan element procesa i zbog toga nije potrebno eksplicitno modelirati njegovu kratkoročnu dinamiku.
 
-
-
 # Korišteni podatci i stilizirane činjenice
 
-U istraživanju se koriste vremenske serije BDP-a Hrvatske i nekoliko skupina zemalja u razdoblju od početka 2000. do kraja 2023. godine: stare zemlje članice Europske Unije (EU15), nove zemlje članice (NMS8 i NMS12) te zemlje juga Europe (SE4).  Pri tome se koriste EUROSTAT-ovi podatci BDP-a na kvartalnoj frekvenciji u razdoblju od 2000q1 do 2023q4. EUROSTAT baza objavljuje podatke za kvartalni BDP bez korekcije za broj stanovnika pa je zbog toga je u ovom radu dodatno korištena IMF-ova baza World Economic Outlook iz koje su preuzeti godišnji podatci o stanovništvu u periodu od 2000. godine  do 2023. godine za sve zemlje obuhvaćene analizom. Godišnji podatci za stanovištvo su dezagregirani na kvartalne metodom kubične interpolacije nakon čega su korišteni u formiranju vremenske serije kvartalnog BDP per capita.
+U istraživanju se koriste vremenske serije BDP-a Hrvatske i nekoliko skupina zemalja u razdoblju od početka 2000. do kraja 2023. godine: stare zemlje članice Europske Unije (EU15), nove zemlje članice (NMS8 i NMS12) te zemlje juga Europe (SE4).  Pri tome se koriste EUROSTAT-ovi podatci BDP-a na kvartalnoj frekvenciji u razdoblju od 2000q1 do 2023q4. EUROSTAT baza objavljuje podatke za kvartalni BDP bez korekcije za broj stanovnika pa je zbog toga je u ovom radu dodatno korištena IMF-ova baza World Economic Outlook iz koje su preuzeti godišnji podatci o stanovništvu u periodu od 2000. godine  do 2023. godine za sve zemlje obuhvaćene analizom. Godišnji podatci za stanovištvo su metodom kubične interpolacije svedeni na kvartalne, nakon čega su korišteni u formiranju vremenske serije BDP per capita na kvartalnoj frekvenciji.
 
 ```{r libs,  echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 #### LIBS ----
@@ -498,29 +488,16 @@ plot_combined_graph <- plot_combined(all_data)
 ```{r vizualizacija1, echo=FALSE, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
 # Print the plot
 print(plot_combined_graph)
-
-
 ```
 
 
+Grafikon 1 prikazuje kretanje razlike i BDP per capita u svim parovima analiziranih zemalja. Na najvišem panelu je prikaz kretanja BDP per capita za Hrvatsku i EU15. Do ekonomske krize, Hrvatski BDP raste brže i približava se prosjeku EU15. Nakon krize 2007. godine dolazi do značajne korekcije BDP-a, a nakon sporog oporavka, EU15 ponovno raste, dok hrvatski dohodak stagnira ili pada.U novijem razdoblju nakon krize COVID-19 pandemije, Hrvatski BDP ponovno  raste brže i primjetan je trend približavanja  prosjeku EU15. Sljedeća dva panela pokazuju kretanje razlike i BDP-a u Hrvatskoj i skupinama NMS8 i NMS12. Do krize 2007. godine svi imaju sličan rast, nakon čega rast u Hrvatskoj usporava, odnono stagnira, u usporedbi s NMS8 i NMS12. Zbog toga su se povećale dohodovne razlike između Hrvatske i ovih skupina. Nakon krize COVID-19 pandemije, Hrvatski dohodak raste relativno brže pa se dohodovne razlike u tom razdoblju smanjuju. Zadnji panel prikazuje kretanje razlike i BDP-a u Hrvatskoj i SE4 skupini. Vidljiv je brži rast Hrvatske u cjelokupnom promatranom razdoblju uz kratkoročno usporavanje konvergencije u periodu krize rize 2007. godine.
 
-Grafikon 1 prikazuju kretanje BDP per capita u parovima zemalja obuhvaćenim analizom. Grafikon 1 prikazuje kretanje BDP per capita za Hrvatsku i EU15. Do ekonomske krize, Hrvatski BDP raste brže i približava se prosjeku EU15. Nakon 2008. dolazi do značajne korekcije BDP-a, a nakon sporog oporavka, EU15 ponovno raste, dok hrvatski dohodak stagnira ili pada.
-
-Grafikon 2 pokazuje kretanje BDP-a u Hrvatskoj i skupinama NMS8 i NMS12. Do 2007. sve skupine imaju sličan rast, nakon čega rast Hrvatskog dohotka usporava u usporedbi s NMS8 i NMS12. Nakon ekonomske krize, NMS8 i NMS12 ponovno rastu, dok Hrvatski dohodak stagnira ili pada.
-
-Grafikon 3 prikazuje kretanje BDP-a u Hrvatskoj i SE4 skupini. Vidljiv je brži rast Hrvatske do ekonomske krize 2008., nakon čega dolazi do stagnacije ili pada BDP-a. SE4 također pokazuje negativan trend nakon 2010.
-
-Grafikoni 4, 5 i 6 prikazuju kretanje diferencijala BDP-a između Hrvatske i EU15, NMS8, NMS12 i SE4. Grafikon 4 pokazuje smanjenje dohodovnih razlika između Hrvatske i EU15 do 2008., što ukazuje na konvergenciju. Nakon krize, dolazi do zastoja.
-
-Grafikon 5 prikazuje kretanje diferencijala BDP-a između Hrvatske i NMS8 te NMS12. Početno, Hrvatska i NMS8 imaju slične dohodovne razine. Nakon 2006. dolazi do trenda povećanja razlika. Tijekom ekonomske krize, razlike se smanjuju, ali nakon 2009. Hrvatski dohodak stagnira, dok NMS8 ponovno rastu. NMS12 prate sličan trend.
-
-Grafikon 6 prikazuje kretanje dohodovnih devijacija između Hrvatske i SE4. Vidljivo je dohodovno sustizanje do 2008., nakon čega dolazi do povećanja jaza. Nakon 2009., diferencijal stagnira ili ima blago pozitivan trend. 
-
-
+Vizualni prikaz podataka ukazuje kako Hrvatska u dugom razdoblju imaa tendenciju konvergencije prema prosjeku EU15 i SE4, dok dugoročna makroekonomska konvergenija prema NMS12 i NMS8 nije zabilježena. Također valja primijetiti da je kriza 2007. godine utjecala na zaustavljanje konvergencije  prema EU15 u trajanju 5 kvartala dok je konvergencijski proces prema SE4 bio postojan. U novijem i kraćem razdoblju nakon krize COVID-19 pandemije, Hrvatska pokazuje tendenciju nastavka konvergencijskog procesa prema svim skupinama, uključujući NMS8 i NMS12. 
+ 
 # Rezultati analize
 
-U ovom dijelu analize prikazani su rezultati testova dohodovne konvergencije između Hrvatske i grupa zemalja EU15, NMS8, NMS12 te SE4. Rezultati su dobiveni korištenjem proširenog Dickey-Fuller testa (ADF) te tri semi-parametarska procjenitelja temeljenih na modelu frakcijske integracije. Prvo su prikazani rezultati ljung box testa i autorkorelacijske funkcije ACF za 20 pomaka u prošlost i ADF testa, a zatim rezultati Robinsonovog procjenitelja, GPH te konačno P-GPH procjenitelja. 
-
+Nakon deskriptivnog pregleda podataka prikazani su rezultati statsitičkih testova dohodovne konvergencije između Hrvatske i EU15, NMS8, NMS12 te SE4. Rezultati su dobiveni na osnovi proširenog Dickey-Fuller testa (ADF) te dva procjenitelja (Geweke, Porter-Hudak,,1983;Reisen, 1994) frakcijske integracije. Prije ovih testova su provedeni predspecifikacijski ljung box test i autorkorelacijska funkcije (ACF) za 20 pomaka u prošlost. 
 
 ```{r ljbx,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 compute_ljung_box_every_second_lag <- function(data, max_lag = 20) {
@@ -549,7 +526,7 @@ ljung_box_table_second_lags <- ljung_box_results_second_lags %>%
 # Create a nice table visualization 
 ljung_box_kable <- ljung_box_table_second_lags %>%
   kable(
-    caption = "Ljung-Box Test P-values for Every Second Lag",
+    caption = "Tablica 1: Ljung-Box Test, P-val",
     col.names = c("Group", "Lag 2", "Lag 4", "Lag 6", "Lag 8", "Lag 10",
                   "Lag 12", "Lag 14", "Lag 16", "Lag 18", "Lag 20"),
     format = "html",
@@ -559,14 +536,14 @@ ljung_box_kable <- ljung_box_table_second_lags %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
   column_spec(1, bold = TRUE) %>%
   row_spec(0, bold = TRUE, background = "#D3D3D3") %>%
-  add_header_above(c(" " = 1, "Ljung-Box Test P-values" = 10))
+  add_header_above(c(" " = 1, " " = 10))
 
 # Print the kable table
 print(ljung_box_kable)
 ```
 
 
-P-vrijednosti od 0 za sve vremenske zaostatke ukazuju na to da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom ispitivanom zaostatku. U praktičnim terminima, takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve ispitane vremenske zaostatke.Dosljedno nalazanje značajne autokorelacije na više zaostataka snažno sugerira prisutnost dugog pamćenja ili postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, možda neće biti dovoljni za hvatanje dinamike podataka. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput ARFIMA (AutoRegressive Fractionally Integrated Moving Average), mogli bi biti prikladniji za modeliranje i predviđanje ove vremenske serije.
+U Tablici 1 su vidljive p-vrijednosti od 0 za sve vremenske zaostatke potvrđuju da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom zaostatku. Takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve vremenske zaostatke. Postojanje značajne autokorelacije na više zaostataka sugerira prisutnost dugog pamćenja, odnosno postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, vjerojatno nisu dovoljni za objašnjenje dinamike u podatcima. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput procjenitelja frakcijski integriranih procesa, mogli bi biti prikladniji za modeliranje i predviđanje.
 
 ```{r acf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 
@@ -592,7 +569,7 @@ acf_results <- acf_results %>%
 # Plot ACF values as bar charts with facets
 acf_facet_plot <- ggplot(acf_results, aes(x = lag, y = acf)) +
   geom_bar(stat = "identity", fill = "black", color = "white") +
-  labs(title = "ACF dijagram", x = "Lag", y = "ACF") +
+  labs(title = "Grafikon 2: ACF dijagram", x = "Lag", y = "ACF") +
   theme_minimal() +
   facet_wrap(~group, scales = "free_y")
 
@@ -601,8 +578,7 @@ print(acf_facet_plot)
 
 ```
 
-ACF (Autokorelacijska funkcija) prikazuje korelaciju vremenske serije sa vlastitim prošlim vrijednostima. ACF se prikazuje za različite vremenske zaostatke, a visina svake trake predstavlja koeficijent korelacije za taj zaostatak. ACF grafikoni za sve četiri grupe (EU15, NMS12, NMS8, SE4) pokazuju sličan obrazac: Visoka autokorelacija pri nižim zaostacima koja se postepeno smanjuje kako se zaostaci povećavaju. To ukazuje na to da vremenska serija za svaku grupu pokazuje značajnu autokorelaciju tijekom više vremenskih zaostataka. Sporo opadanje vrijednosti ACF-a sugerira prisutnost dugog pamćenja ili postojanosti u podacima. Međutim, zbog prisutnosti dugog pamćenja, potrebno je razmotriti specijalizirane modele koji uzimaju u obzir dugoročne ovisnosti.
-
+Na grafikonu 2 je prikazana autokorelacijska funkcija (ACF) vremenske serije sa vlastitim prošlim vrijednostima ACF za sve četiri grupe (EU15, NMS12, NMS8, SE4) pokazuju sličan obrazac. Visoka autokorelacija pri nižim zaostacima koja se postepeno smanjuje kako se zaostaci povećavaju. To ukazuje da svaku vremenska seriju karakterizira autokorelaciju tijekom više vremenskih zaostataka. Sporo opadanje vrijednosti ACF također sugerira prisutnost dugog pamćenja i postojanosti u podacima.  
 
 ```{r adf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 # Calculate the differences between Croatia's log GDP per capita and the groups
