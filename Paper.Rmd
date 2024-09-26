@@ -683,7 +683,6 @@ Tablica 2 prikazuje rezultate ADF testa jediničnog korijena u vremenskim serija
 
 Uključivanje konstante omogućuje testiranje stacionarnosti oko nenulte razlike BDP-a, što implicira uvjetnu konvergenciju. Niti jedna testna statistika u ovoj specifikaciji RH-NMS8 (-1,2421), RH-NMS12 (-0,9692), RH-SE4 (-0,9649) i RH-EU15 (-1,5321) nije značajna na uobičajenim razinama. Nemogućnost odbacivanja nulte hipoteze o jediničnom korijenu ukazuje na nedostatak dokaza o uvjetnoj konvergenciji između Hrvatske i bilo koje od ispitivanih grupa.
 
-
 Kada su u specifikaciju uključene i konstanta i trend, test ispituje je li serija stacionarna oko determinističkog trenda, što sugerira konvergenciju prema zajedničkoj putanji rasta. Testne statistike za RH-NMS8 (-1,4971) i RH-NMS12 (-1,5416) nisu statistički značajne, što ukazuje na nedostatak konvergencije prema zajedničkom trendu s tim grupama. Za RH-SE4, testna statistika iznosi -2,8016, što je značajno na razini od 10%. Ovaj rezultat sugerira slabe dokaze o trend-stacionarnosti, implicirajući da Hrvatska možda konvergira prema zajedničkom trendu rasta s grupom SE4. Testna statistika za RH-EU15 (-2,1420) nije značajna, što ne pruža potporu za trend-konvergenciju s grupom EU15.
 
 
@@ -768,7 +767,7 @@ gph_results_wide_fdSperio <- gph_results_long_fdSperio %>%
 # GPH Estimator Table
 kable(
   gph_results_wide_fdGPH, 
-  caption = "GPH Estimator (fdGPH) Results for Income Convergence by Bandwidth with Significance",
+  caption = " Tablica 3: GPH Estimator (fdGPH) Results for Income Convergence by Bandwidth with Significance",
   col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
   digits = 4,
   align = 'c'
@@ -779,7 +778,7 @@ kable(
 # Sperio Estimator Table
 kable(
   gph_results_wide_fdSperio, 
-  caption = "GPH Estimator (fdSperio) Results for Income Convergence by Bandwidth with Significance",
+  caption = "Tablica 4: GPH Estimator (fdSperio) Results for Income Convergence by Bandwidth with Significance",
   col.names = c("Group Name", paste0("GPH d (", bandwidths, ")")),
   digits = 4,
   align = 'c'
@@ -790,7 +789,17 @@ kable(
 ```
 
 
-Tablica 2 sadržava rezultate testa dohodovne konvergencije temeljem specifikacije modela frakcijske integracije i primjene Robinsonovog procjenitelja. Rezultati formalnih testova uvelike potkrjepljuju prethodni vizualni prikaz podataka o postojanju uvjetne dohodovne konvergencije između Hrvatske i EU15. Procjena parametra frakcijske integracije u vremenskoj seriji dohodovnog diferencijala između Hrvatske i EU15 iznosi z=0.9226z=0.9226. Ova procjena je robusna u odnosu na procijenjeni parametar prema GPH i P-GPH procjeniteljima (vidi Tablice 2 i 3). Dodatno, analiza robusnosti na temelju izbora različitog broja ordinata potkrjepljuje jednak zaključak, no u nešto slabijoj mjeri. Ovo sugerira da, unatoč određenoj varijabilnosti u rezultatima ovisno o broju korištenih ordinata, osnovni zaključak o postojanju uvjetne dohodovne konvergencije ostaje čvrst.
+Tablica 2 prikazuje rezultate testa dohodovne konvergencije temeljem specifikacije modela frakcijske integracije i primjene metode Gewekea i Portera-Hudaka (GPH) kroz različite širine pojasa (od 0,4 do 0,9) za serije dohodovnih diferencijala između Hrvatske i četiri grupe zemalja: NMS8, NMS12, SE4 i EU15. Parametar d pruža uvid u memorijske karakteristike (perzistentnost) vremenskih serija, što ima izravne implikacije za analizu dohodovne konvergencije. Za parametar u rasponu d<0,5 serija je stacionarna i pokazuje kratku memoriju te šokovi imaju privremene učinke.Parametar u rasponu 0,5≤d<1 implicira da je erija je nestacionarna ali se vraća svojoj sredini te šokovi imaju dugotrajne, ali ne i trajne učinke.
+Vrijednost parametra d=1 označava da serija ima jedinični korijen i da šokovi imaju trajne učinke.
+Za vrijednost d>1 serija je nestacionarna i ne vraća se svojoj sredini te šokovi imaju trajne učinke, a serija pokazuje eksplozivno ponašanje. 
+
+Za grupe NMS8 i NMS12, procijenjene vrijednosti d su konzistentno veće od 1 kroz sve širine pojasa,krećući se od 1,03 do 1,51, i statistički su značajne na razini od 1%. To ukazuje da su serije dohodovnih diferencijala između Hrvatske i ovih grupa nestacionarne i ne vraćaju se na srednju vrijednost. Takav rezultat implicira da nedostatak  dokaza o konvergenciji, perzistentnost šokova te trajna odstupanja u razinama dohotka. Procijenjene vrijednosti d za grupu SE4 kreću se od približno 0,8854 do 0,9608 i sve su značajne na razini od 1%. Takav rezultat ukazuje da je serija nestacionarna ali se vraća srednjoj vrijednosti.To znači da iako šokovi imaju dugotrajne učinke, dohodovne će se razlike smanjivati tijekom vremena. Za grupu EU15, procijenjene vrijednosti d povećavaju se od približno 0,5736 do 0,9123 kako se širina pojasa povećava i sve su značajne na razini od 1%. Ovakav rezultat sugerira da se serija dohodovnih diferencijala vraća na srednju vrijednost, što implicira postojanje konvergencijskog procesa.
+
+
+
+
+
+Rezultati formalnih testova uvelike potkrjepljuju prethodni vizualni prikaz podataka o postojanju uvjetne dohodovne konvergencije između Hrvatske i EU15. Procjena parametra frakcijske integracije u vremenskoj seriji dohodovnog diferencijala između Hrvatske i EU15 iznosi z=0.9226z=0.9226. Ova procjena je robusna u odnosu na procijenjeni parametar prema GPH i P-GPH procjeniteljima (vidi Tablice 2 i 3). Dodatno, analiza robusnosti na temelju izbora različitog broja ordinata potkrjepljuje jednak zaključak, no u nešto slabijoj mjeri. Ovo sugerira da, unatoč određenoj varijabilnosti u rezultatima ovisno o broju korištenih ordinata, osnovni zaključak o postojanju uvjetne dohodovne konvergencije ostaje čvrst.
 
 
 
