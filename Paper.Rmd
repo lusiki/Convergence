@@ -509,7 +509,7 @@ Vizualna analiza podataka ukazuje da Hrvatska dugoročno konvergira prema prosje
  
 # Rezultati analize
 
-Nakon deskriptivnog pregleda podataka prikazani su rezultati statsitičkih testova dohodovne konvergencije između Hrvatske i EU15, NMS8, NMS12 te SE4. Rezultati su dobiveni na osnovi proširenog Dickey-Fuller testa (ADF) te dva procjenitelja (Geweke, Porter-Hudak,,1983;Reisen, 1994) frakcijske integracije. Prije ovih testova su provedeni predspecifikacijski ljung box test i autorkorelacijska funkcije (ACF) za 20 pomaka u prošlost. 
+Nakon deskriptivne analize podataka, u ovome su dijelu prikazani rezultati statističkih testova dohodovne konvergencije između Hrvatske i skupina EU15, NMS8, NMS12 te SE4. Ovi rezultati dobiveni su korištenjem proširenog Dickey-Fuller (ADF) testa te dvaju procjenitelja frakcijske integracije,konkretno, procjenitelja koje su predložili Geweke i Porter-Hudak (1983) te Reisen (1994). Prije provođenja ovih testova, izvršeni su Ljung-Box test i analizirana autokorelacijska funkcija (ACF) za 20 vremenskih zaostataka u cilju procije prikladnoste korištenog pristupa.
 
 ```{r ljbx,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 compute_ljung_box_every_second_lag <- function(data, max_lag = 20) {
@@ -555,7 +555,9 @@ print(ljung_box_kable)
 ```
 
 
-U Tablici 1 su vidljive p-vrijednosti od 0 za sve vremenske zaostatke potvrđuju da se nulta hipoteza o nepostojanju autokorelacije odbacuje za svaki zaostatak. To sugerira da postoji značajna autokorelacija na svakom zaostatku. Takav rezultat implicira da prošle vrijednosti imaju jak i statistički značajan utjecaj na buduće vrijednosti kroz sve vremenske zaostatke. Postojanje značajne autokorelacije na više zaostataka sugerira prisutnost dugog pamćenja, odnosno postojanosti u podacima. To znači da se učinci prošlih šokova sporo smanjuju tijekom vremena i da prošle vrijednosti imaju produženi utjecaj na buduće vrijednosti serije. S obzirom na jaku autokorelaciju naznačenu ovim rezultatima, jednostavni modeli poput ARIMA, koji pretpostavljaju kratko pamćenje, vjerojatno nisu dovoljni za objašnjenje dinamike u podatcima. Umjesto toga, modeli koji mogu uzeti u obzir dugoročne ovisnosti, poput procjenitelja frakcijski integriranih procesa, mogli bi biti prikladniji za modeliranje i predviđanje.
+Tablica 1 prikazuje p-vrijednosti od 0 za sve vremenske zaostatke u Ljung-Box testu, što nedvosmisleno ukazuje na odbacivanje nulte hipoteze o nepostojanju autokorelacije na svakoj razini zaostatka. Ovaj rezultat sugerira značajnu autokorelaciju kroz sve vremenske zaostatke, implicirajući da prošle vrijednosti imaju snažan i statistički značajan utjecaj na buduće vrijednosti tijekom cijelog promatranog razdoblja. Prisustvo značajne autokorelacije na višestrukim zaostacima upućuje na to da podaci pokazuju dugo pamćenje ili perzistentnost. Drugim riječima, učinci prošlih šokova smanjuju se sporo tijekom vremena, a povijesne vrijednosti nastavljaju utjecati na buduća opažanja kroz dulje vremensko razdoblje.
+
+S obzirom na ovako izraženu strukturu autokorelacije, konvencionalni modeli vremenskih serija, koji pretpostavljaju procese kratkog pamćenja, možda neće adekvatno uhvatiti temeljnu dinamiku podataka. Stoga je nužno primijeniti modele koji mogu uzeti u obzir dugoročne ovisnosti. Procjenitelji frakcijske integracije su stoga prikladni za modeliranje i predviđanje u prisutnosti karakteristika dugog pamćenja.
 
 ```{r acf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 
@@ -590,7 +592,11 @@ print(acf_facet_plot)
 
 ```
 
-Na grafikonu 2 je prikazana autokorelacijska funkcija (ACF) vremenske serije sa vlastitim prošlim vrijednostima ACF za sve četiri grupe (EU15, NMS12, NMS8, SE4) pokazuju sličan obrazac. Visoka autokorelacija pri nižim zaostacima koja se postepeno smanjuje kako se zaostaci povećavaju. To ukazuje da svaku vremenska seriju karakterizira autokorelaciju tijekom više vremenskih zaostataka. Sporo opadanje vrijednosti ACF također sugerira prisutnost dugog pamćenja i postojanosti u podacima.  
+Grafikon 2 prikazuje autokorelacijske funkcije (ACF) vremenskih serija za sve četiri analizirane skupine (EU15, NMS8, NMS12, SE4). Uočava se konzistentan obrazac u svim serijama: visoka autokorelacija pri nižim zaostacima koja se postupno smanjuje s povećanjem broja zaostataka. Ovaj obrazac potvrđuje da svaku vremensku seriju karakterizira značajna autokorelacija koja se proteže preko više vremenskih zaostataka. Štoviše, sporo opadanje vrijednosti ACF dodatno potkrepljuje prisutnost dugog pamćenja i perzistentnosti u podacima.
+
+Ovi nalazi dodatno naglašavaju važnost uvažavanja dugoročnih ovisnosti u  analizi dohodovne konvergencije. Perzistentnost koju sugeriraju ACF grafikoni ukazuje na to da šokovi u dohodovnim diferencijalima između Hrvatske i odgovarajućih skupina zemalja imaju trajne učinke. Posljedično, modeli koji uključuju frakcijsku integraciju prikladniji su za hvatanje  dinamike konvergencijskog procesa.
+
+Zaključno, prisutnost dugog pamćenja i perzistentnosti u podacima upućuje na složene dinamike koje oblikuju dohodovne razlike između Hrvatske i ostalih europskih zemalja. Korištenjem naprednih metodoloških pristupa koji mogu adresirati ove karakteristike, pruža se dublji uvid u mehanizme koji potiču ili ometaju proces ekonomske konvergencije. 
 
 ```{r adf,  echo=FALSE, message=FALSE, warning=FALSE,results='asis', fig.width=10, fig.height=6}
 # Calculate the differences between Croatia's log GDP per capita and the groups
