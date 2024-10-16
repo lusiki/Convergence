@@ -1,0 +1,41 @@
+\documentclass{crebsshr}
+
+%%%%%%%%% Journal Info -- DO NOT CHANGE %%%%%%%%%
+\setcounter{page}{1}
+\setcounter{secnumdepth}{4}
+\renewcommand\thisnumber{x}
+\renewcommand\thisyear {202x}
+\renewcommand\thisvolume{x}
+\renewcommand\datereceived{xxxx xx, 202x}
+\renewcommand\dateaccepted{xxxx xx, 202x}
+\renewcommand\dateavailable{xxxx xx, 202x}
+\renewcommand\doinumber{10.62366/crebss.202x.x.00x}
+\renewcommand\type{XXX XXX}
+\renewcommand\JEL{XXX, XXX}
+%%%%%%%%% End Journal Info   %%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{fontawesome}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{float}  % For [H] placement
+\usepackage{booktabs}  % For professional tables
+\usepackage{subcaption}  % For subfigures
+\usepackage{geometry}  % Adjust margins if needed
+
+% Custom commands from the blueprint
+\newcommand{\affilnum}[1]{\textsuperscript{#1}}
+
+% Begin document
+\begin{document}
+
+% The title, author, abstract, etc., will be inserted by R Markdown
+
+$body$
+
+% Bibliography (if using BibTeX)
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
