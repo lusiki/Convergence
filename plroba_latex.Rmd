@@ -1,53 +1,38 @@
 ---
-title: "Insert Your Title Here"
-shorttitle: "Short Title for Headers"
+title: "Test Document"
+shorttitle: "Test"
 author:
-  - Ime1 Prezime1 \affil{1}\comma\corrauth
-shortauthor: "Prezime1, Prezime2 & Prezime3"
 address: |
   \affilnum{1}\ Sveučilište..., Fakultet ili Odjel..., Adresa1, Zemlja1 \href{mailto:abc@abc.com}{\faEnvelopeO}
-  \newline
-  \affilnum{2}\ Sveučilište..., Fakultet ili Odjel..., Adresa2, Zemlja2
-date: "`r format(Sys.Date(), '%d %B %Y')`"
-thisnumber: "x"
-thisyear: "202x"
-thisvolume: "x"
-datereceived: "xxxx xx, 202x"
-dateaccepted: "xxxx xx, 202x"
-dateavailable: "xxxx xx, 202x"
-doinumber: "10.62366/crebss.202x.x.00x"
-type: "XXX XXX"
-JEL: "XXX, XXX"
-keywords: "izraz1, izraz2,..."
+keywords: "test, latex, RMarkdown"
 abstract: |
-  Sažetak ne smije biti dulji od 200 riječi, ali ne manji od 150. Sažetak treba ilustrirati sadržaj članka s jasnim ciljevima, metodologijom, rezultatima i doprinosom. Članak se može klasificirati kao (i) izvorni znanstveni rad, (ii) pregledni rad ili (iii) prethodno priopćenje, ovisno o prijedlozima recenzenata.
+  This is a test abstract to verify LaTeX compilation with the custom class.
 output:
   pdf_document:
     template: template.tex
     keep_tex: true
-    latex_engine: xelatex
+    latex_engine: pdflatex
 ---
+    
+# Introduction
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+This is a test document. Here's a citation: \citep{shoukralla:23}.
 
-## R Markdown
+\begin{equation} \label{eq:test}
+E = mc^2
+\end{equation}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Referencing the equation: \eqref{eq:test}.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Conclusion
 
-```{r cars}
-summary(cars)
-```
+Test conclusion.
+    
+# References
 
-## Including Plots
+\begin{thebibliography}{99}
 
-You can also embed plots, for example:
+\bibitem[Shoukralla and Ahmed(2023)]{shoukralla:23}
+Shoukralla, E. S. and Ahmed, B. M. (2023). Barycentric Lagrange Interpolation Methods for Evaluating Singular Integrals. *Alexandria Engineering Journal*, 69, 243–253. \href{https://doi.org/10.1016/j.aej.2022.12.005}{doi:10.1016/j.aej.2022.12.005}
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+\end{thebibliography}

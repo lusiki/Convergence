@@ -32,40 +32,28 @@
 
 % The title, author, abstract, etc., will be inserted by R Markdown
 
-\subsection{R Markdown}\label{r-markdown}
+\section{Introduction}\label{introduction}
 
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see \url{http://rmarkdown.rstudio.com}.
+This is a test document. Here's a citation: \citep{shoukralla:23}.
 
-When you click the \textbf{Knit} button a document will be generated
-that includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
+\begin{equation} \label{eq:test}
+E = mc^2
+\end{equation}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(cars)}
-\end{Highlighting}
-\end{Shaded}
+Referencing the equation: \eqref{eq:test}.
 
-\begin{verbatim}
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-\end{verbatim}
+\section{Conclusion}\label{conclusion}
 
-\subsection{Including Plots}\label{including-plots}
+Test conclusion.
 
-You can also embed plots, for example:
+\section{References}\label{references}
 
-\includegraphics{plroba_latex_files/figure-latex/pressure-1.pdf}
+\begin{thebibliography}{99}
 
-Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
-chunk to prevent printing of the R code that generated the plot.
+\bibitem[Shoukralla and Ahmed(2023)]{shoukralla:23}
+Shoukralla, E. S. and Ahmed, B. M. (2023). Barycentric Lagrange Interpolation Methods for Evaluating Singular Integrals. *Alexandria Engineering Journal*, 69, 243–253. \href{https://doi.org/10.1016/j.aej.2022.12.005}{doi:10.1016/j.aej.2022.12.005}
+
+\end{thebibliography}
 
 % Bibliography (if using BibTeX)
 \bibliographystyle{plain}
