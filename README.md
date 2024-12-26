@@ -7,111 +7,81 @@
 
 # OpenSource and Reproducible Analysis of Economic Convergence Clubs for Croatia
 
+![Project Photo](./photo.jpg)
+
 ## Overview
 
-This repository contains the resources and data for the research paper titled **"OpenSource and Reproducible Analysis of Economic Convergence Clubs for Croatia."** The study investigates the income convergence of Croatia from 2000 to 2024 across four groups of countries: EU15, NMS8, NMS12, and SE4. Utilizing time series methodology, specifically fractional integration, the empirical analysis examines Croatia's membership in different economic convergence clubs within the European Union.
+This repository contains the resources and data for the research paper titled **"OpenSource and Reproducible Analysis of Economic Convergence Clubs for Croatia."** The study investigates the income convergence of Croatia from 2000 to 2024 across four groups of countries: EU15, NMS8, NMS12, and SE4. Utilizing time-series methodology—specifically, fractional integration—the empirical analysis examines Croatia's membership in different economic convergence clubs within the European Union.
 
 ## Key Findings
 
 - **Convergence with EU15 and SE4:**
-  - **EU15:** Croatia exhibits income convergence with EU15 countries, supported by significant fractional integration parameters ($d$) ranging from 0.5643*** to 0.8986***. These values indicate a mean-reverting process, albeit a slow convergence.
-  - **SE4:** Similar convergence is observed with SE4 countries, with $d$ values between 0.8852*** and 0.9516***, suggesting that income differences are reducing over time, though the process remains gradual.
+  - **EU15:** Croatia demonstrates income convergence with EU15 countries, indicated by significant fractional integration parameters (\(d\)) ranging from 0.5643\*\*\* to 0.8986\*\*\*. These values suggest a mean-reverting process, albeit at a slow pace.
+  - **SE4:** A similar pattern is observed with SE4 countries. Estimated \(d\) values between 0.8852\*\*\* and 0.9516\*\*\* suggest gradually diminishing income differentials over time.
 
 - **Lack of Convergence with NMS8 and NMS12:**
-  - **NMS8 and NMS12:** The analysis does not support convergence between Croatia and the NMS8 and NMS12 groups. The estimated $d$ parameters exceed 1 (1.4347*** to 1.5002*** for NMS8 and 1.2523*** to 1.5002*** for NMS12), indicating persistent income differences and the absence of convergence.
+  - **NMS8 & NMS12:** The analysis does not confirm convergence between Croatia and these country groups. Estimated \(d\) parameters exceed 1 (e.g., 1.4347\*\*\* to 1.5002\*\*\* for NMS8), indicating persistent income differentials and the absence of mean reversion.
 
-- **Robustness of Results:**
-  - The findings are robust across various estimators and bandwidth selections, particularly highlighting permanent income differences between Croatia and NMS8/NMS12.
+- **Robustness:**
+  - The results remain consistent across various estimators and bandwidth selections, highlighting stable and persistent income differences between Croatia and NMS8/NMS12, and confirming a slow but significant convergence with EU15 and SE4.
 
 ## Methodology
 
-The study employs the Autoregressive Distributed Lag (ADF) test and the Geweke-Porter-Hudak (GPH) test to assess the stationarity and fractional integration of income differentials between Croatia and the selected country groups.
+The study employs two primary tests to analyze convergence:
+
+1. **ADF Test (Augmented Dickey-Fuller)**  
+   - Examines different convergence concepts:
+     - **Absolute Convergence** (no constant, no trend)
+     - **Conditional Convergence** (constant included)
+     - **Deterministic Trend Convergence** (constant and trend included)
+
+2. **GPH Test (Geweke-Porter-Hudak)**  
+   - Estimates the fractional integration parameter (\(d\)) across multiple bandwidths to determine the nature of convergence (stationary, mean-reverting, or non-stationary).
 
 ### ADF Test Results
 
-The ADF tests evaluate absolute, conditional, and deterministic convergence by testing stationarity around zero difference, non-zero difference, and deterministic trends, respectively.
-
-**Table 2. ADF Test Results**
-
 | **Group Name**   | **Without Const/Trend** | **With Const** | **With Const/Trend** |
-|------------------|-------------------------|-----------------|-----------------------|
-| RH-NMS8          | -0.3342                 | -1.2816         | -1.2669               |
-| RH-NMS12         | -0.2698                 | -1.0464         | -1.3638               |
-| RH-SE4           | -4.1785***              | -0.7209         | -2.6062*              |
-| RH-EU15          | -2.97**                 | -1.2619         | -1.9528               |
+|------------------|-------------------------|----------------|----------------------|
+| RH-NMS8          | -0.3342                 | -1.2816        | -1.2669              |
+| RH-NMS12         | -0.2698                 | -1.0464        | -1.3638              |
+| RH-SE4           | -4.1785\*\*\*           | -0.7209        | -2.6062\*            |
+| RH-EU15          | -2.97\*\*               | -1.2619        | -1.9528              |
 
-*** p < 0.01, ** p < 0.05, * p < 0.1
+\*\*\* p < 0.01, \*\* p < 0.05, \* p < 0.1
 
 ### GPH Test Results
 
-The GPH tests examine the fractional integration parameters ($d$) across different bandwidths to determine the presence and nature of convergence.
-
-**Table 3. GPH Test Results for Various Bandwidths**
-
-| **Group Name**     | **GPH $d$ (0.4)**        | **GPH $d$ (0.5)**        | **GPH $d$ (0.6)**        | **GPH $d$ (0.7)**        | **GPH $d$ (0.8)**        | **GPH $d$ (0.9)**        |
+| **Group Name**     | **GPH \(d\) (0.4)**      | **GPH \(d\) (0.5)**      | **GPH \(d\) (0.6)**      | **GPH \(d\) (0.7)**      | **GPH \(d\) (0.8)**      | **GPH \(d\) (0.9)**      |
 |--------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-| **Croatia vs NMS8** | 1.4347***                | 1.1921***                | 1.286***                 | 1.1137***                | 1.1511***                | 1.1446***                |
-| **Croatia vs NMS12**| 1.5002***                | 1.2523***                | 1.2915***                | 1.1047***                | 1.1534***                | 1.1048***                |
-| **Croatia vs SE4**  | 0.8852***                | 0.8712***                | 0.8867***                | 0.9279***                | 0.9272***                | 0.9516***                |
-| **Croatia vs EU15** | 0.5643***                | 0.6541***                | 0.7256***                | 0.8405***                | 0.8554***                | 0.8986***                |
+| **Croatia vs NMS8**  | 1.4347\*\*\*            | 1.1921\*\*\*            | 1.286\*\*\*             | 1.1137\*\*\*            | 1.1511\*\*\*            | 1.1446\*\*\*            |
+| **Croatia vs NMS12** | 1.5002\*\*\*            | 1.2523\*\*\*            | 1.2915\*\*\*            | 1.1047\*\*\*            | 1.1534\*\*\*            | 1.1048\*\*\*            |
+| **Croatia vs SE4**   | 0.8852\*\*\*            | 0.8712\*\*\*            | 0.8867\*\*\*            | 0.9279\*\*\*            | 0.9272\*\*\*            | 0.9516\*\*\*            |
+| **Croatia vs EU15**  | 0.5643\*\*\*            | 0.6541\*\*\*            | 0.7256\*\*\*            | 0.8405\*\*\*            | 0.8554\*\*\*            | 0.8986\*\*\*            |
 
-*** p < 0.01
+\*\*\* p < 0.01
 
 ## Summary of Results
 
-### Absolute Convergence
+- **Absolute Convergence:**  
+  - No convergence for NMS8 & NMS12; significant convergence for SE4 & EU15.
 
-Absolute convergence is tested without including a constant and trend in the specification. The ADF test assesses the stationarity around zero income difference.
+- **Conditional Convergence:**  
+  - No evidence of conditional convergence with any group.
 
-- **NMS8 and NMS12:**
-  - **Test Statistics:** -0.3342 (RH-NMS8) and -0.2698 (RH-NMS12)
-  - **Significance:** Not significant
-  - **Interpretation:** The null hypothesis of a unit root cannot be rejected, indicating no absolute convergence between Croatia and NMS8/NMS12.
+- **Deterministic Trend Convergence:**  
+  - Weak convergence with SE4; no significant trend-based convergence for EU15, NMS8, or NMS12.
 
-- **SE4 and EU15:**
-  - **Test Statistics:** -4.1785*** (RH-SE4) and -2.97** (RH-EU15)
-  - **Significance:** Significant at 1% and 5% levels, respectively
-  - **Interpretation:** Significant evidence of absolute convergence between Croatia and SE4/EU15 groups.
+## Abstract
 
-### Conditional Convergence
+This paper analyzes the income convergence of Croatia from 2000 to 2024 with respect to four groups of countries: EU15, NMS8, NMS12, and SE4. By employing a time-series methodology based on fractional integration, we investigate Croatia’s membership in different convergence clubs within the European Union. The results show that Croatia converges toward the income levels of EU15 and SE4, with estimated fractional integration parameters of 0.87 and 0.95, indicating a slow but persistent convergence process. However, convergence with NMS8 and NMS12 is not confirmed, with parameters exceeding 1.0, suggesting lasting income differentials. These findings imply that Croatia is economically catching up with older EU member states and Southern European countries but not with newer member states.
 
-Conditional convergence is examined by including a constant in the specification, allowing for non-zero income differences.
+## Conclusion
 
-- **All Groups (NMS8, NMS12, SE4, EU15):**
-  - **Test Statistics:** Ranging from -1.2816 to -1.2619
-  - **Significance:** Not significant
-  - **Interpretation:** No evidence of conditional convergence between Croatia and any of the analyzed country groups.
+This study examined Croatia’s income convergence with various groups of EU member states by applying time-series analysis and fractional-integration methods. While previous literature indicated certain convergence patterns for some post-transition economies toward the EU average, this research focused specifically on Croatia’s convergence patterns. We also placed the question of income convergence in the broader context of European integration processes by analyzing Croatia’s mutual convergence with the average income of four groups: EU15, NMS8, NMS12, and SE4.
 
-### Deterministic Trend Convergence
+The fractional-integration tests on Croatia’s income differential with these groups show evidence of convergence only with EU15 and SE4, while no such convergence was found for NMS8 and NMS12. The results are robust to different estimators and bandwidth choices, indicating that Croatia converges slowly toward the average incomes of EU15 and SE4, with a slightly faster pace observed for SE4. The findings also reveal that Croatia is not part of the convergence club of new member states (NMS8 and NMS12) but belongs to the EU15 and SE4 clubs, where the convergence process with SE4 is more robust and faster than with EU15.
 
-This convergence is assessed by including both a constant and a trend in the specification, testing for convergence towards a common growth path.
-
-- **NMS8 and NMS12:**
-  - **Test Statistics:** -1.2669 (RH-NMS8) and -1.3638 (RH-NMS12)
-  - **Significance:** Not significant
-  - **Interpretation:** No convergence towards a common trend with NMS8 and NMS12.
-
-- **SE4:**
-  - **Test Statistics:** -2.6062*
-  - **Significance:** Significant at 10%
-  - **Interpretation:** Weak evidence of convergence towards a common trend with SE4.
-
-- **EU15:**
-  - **Test Statistics:** -1.9528
-  - **Significance:** Not significant
-  - **Interpretation:** No convergence towards a common trend with EU15.
-
-## SAŽETAK
-
-Rad analizira dohodovnu konvergenciju Hrvatske u razdoblju od 2000. do 2024. godine prema četiri skupine zemalja: EU15, NMS8, NMS12 i SE4. Korištenjem metodologije vremenskih serija i frakcijske integracije, istražuje se pripadnost Hrvatske različitim konvergencijskim klubovima unutar Europske unije. Rezultati pokazuju da Hrvatska konvergira prema dohodovnim razinama EU15 i SE4, s procijenjenim parametrima frakcijske integracije od 0,87 i 0,95. To ukazuje na spor, ali postojan konvergencijski proces. Međutim, konvergencija prema NMS8 i NMS12 nije potvrđena, s parametrima iznad 1, što sugerira trajne dohodovne razlike. Ovi nalazi impliciraju da se Hrvatska ekonomski približava starim članicama EU i zemljama južne Europe, ali ne i novim zemljama članicama.
-
-## Zaključak
-
-Rad je analizirao dohodovnu konvergenciju Hrvatske s različitim skupinama zemalja Europske unije koristeći analizu vremenskih serija i metode frakcijske integracije. Dok je prethodna literatura pokazala postojanje dohodovne konvergencije za neke, ali ne sve posttranzicijske europske zemlje prema prosjeku EU, ovaj rad proširio je to područje fokusirajući se na konvergencijske obrasce specifične za Hrvatsku. Dodatno, pitanje dohodovne konvergencije smješteno je u širi kontekst europskih integracijskih procesa kroz analizu međusobne konvergencije između Hrvatske i prosjeka dohotka četiri grupe zemalja: EU15, NMS8, NMS12 i SE4. Time je omogućeno zaključivanje o smjeru ekonomske i institucionalne konvergencije unutar europskih integracija te o pripadnosti Hrvatske određenim konvergencijskim klubovima.
-
-Rezultati testova frakcijske integracije dohodovnog diferencijala između Hrvatske i odabranih skupina zemalja pokazali su da konvergencija postoji između Hrvatske i EU15 te Hrvatske i SE4, dok ona nije potvrđena između Hrvatske i NMS8 te NMS12. Svi rezultati su robusni s obzirom na različite procjenitelje i različite izbore širine pojasa. Nalazi impliciraju da je konvergencija Hrvatske prema prosjeku EU15 i SE4 spor proces, ali nešto brži prema SE4. Također se nameće i zaključak da Hrvatska ne pripada konvergencijskom klubu novih članica (NMS8 i NMS12), već konvergencijskim klubovima EU15 i SE4, pri čemu je konvergencija prema SE4 robusnija i brža nego prema EU15.
-
-Ovi nalazi imaju implikacije za europske integracijske procese. Unatoč kasnijem pristupanju Europskoj uniji i primjeni mjera institucionalnog, pravnog i ekonomskog usklađivanja s novim članicama, Hrvatska ne pokazuje dohodovnu konvergenciju s grupama NMS8 i NMS12. To sugerira da institucionalna i pravna integracija ne rezultiraju nužno i ekonomskom konvergencijom. Čini se da Hrvatska ekonomski konvergira prema zemljama EU15 i SE4, koje karakteriziraju sporiji ili negativan gospodarski rast. Potvrda konvergencije prema SE4 ukazuje na pridruživanje Hrvatske konvergencijskom klubu južne Europe i općenito ukazuje na potrebu za politikama koje će potaknuti brži gospodarski rast i razvoj. Ovi nalazi naglašavaju važnost uvažavanja dugoročnih ovisnosti u analizi dohodovne konvergencije. Perzistentnost koju sugeriraju ACF grafikoni ukazuje na to da šokovi u dohodovnim diferencijalima između Hrvatske i odgovarajućih skupina zemalja imaju trajne učinke, te se frakcijska integracija nameće kao prikladna metoda za uvažavanje ovakve konvergencijske dinamike.
+These insights have implications for European integration policies. Despite later accession to the EU and alignment with institutional, legal, and economic measures introduced by newer member states, Croatia does not display convergence with NMS8 and NMS12. This suggests that institutional and legal harmonization does not necessarily lead to economic convergence. Instead, Croatia appears to be converging more toward countries characterized by slower or negative economic growth (EU15, SE4). Verification of Croatia’s convergence to SE4 specifically highlights the need for policies to facilitate faster economic growth and development. Overall, the persistence of shocks, as indicated by the autocorrelation functions, underscores the suitability of fractional integration methods for capturing these convergence dynamics.
 
 ## Resources
 
