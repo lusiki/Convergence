@@ -7,7 +7,7 @@
 
 # OpenSource and Reproducible Analysis of Economic Convergence Clubs for Croatia
 
-![Project Photo](./photo.jpg)
+![Project Photo](./Rplot.png)
 
 ## Overview
 
