@@ -117,7 +117,7 @@ Ovi nalazi imaju implikacije za europske integracijske procese. Unatoč kasnijem
 
 - **Working Paper (HTML):** [Link](https://raw.githack.com/lusiki/Convergence/main/Paper.html)
 - **Working Paper (Pdf):** [Link](./Paper/Konvergencija.pdf)
-- **Working Paper (Rmd):** [Link](.vPaper/Konvergencija.Rmd)
+- **Working Paper (Rmd):** [Link](./Paper/Konvergencija.Rmd)
 - **Working Paper (Latex):** [Link](./Paper/Konvergencija.tex)
 - **Codes:** [Codes.R](.Codes/Codes.R)
 - **Data:** Auto-generated from within the `Paper.Rmd` file.
