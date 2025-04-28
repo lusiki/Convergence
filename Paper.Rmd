@@ -543,7 +543,7 @@ ljung_box_kable <- ljung_box_table_second_lags %>%
     col.names = c("Group", "Lag 2", "Lag 4", "Lag 6", "Lag 8", "Lag 10",
                   "Lag 12", "Lag 14", "Lag 16", "Lag 18", "Lag 20"),
     format = "html",
-    digits = 3,
+    digits = 2,
     align = "c"
   ) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F) %>%
