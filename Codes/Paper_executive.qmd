@@ -1,0 +1,303 @@
+---
+title: "Hrvatska u kontekstu europskih konvergencijskih klubova"
+subtitle: "Analiza dohodovne konvergencije metodama frakcijske integracije"
+author: 
+  - name: "Luka Sikić"
+    email: "luka.sikic@unicath.hr"
+    affiliation: "Croatian Catholic University"
+date: today
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    embed-resources: true
+    smooth-scroll: true
+    css: |
+      .hero-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .key-finding {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .equation-box {
+        background: #f8f9fa;
+        border-left: 4px solid #007bff;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 4px;
+      }
+      .methodology-highlight {
+        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 8px;
+        color: #2c3e50;
+      }
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+Pripada li Hrvatska različitim konvergencijskim klubovima unutar EU? Ova analiza istražuje smanjuje li se dohodovni jaz Hrvatske u odnosu na stare članice (EU15), nove članice (NMS8, NMS12) i zemlje južne Europe (SE4) u razdoblju od 2000. do 2024. godine. Primjenom metodologije frakcijske integracije, analiza daje uvid u dugoročne trendove dohodovnih razlika. Rezultati analize olakšavaju razumijevanje ekonomskog položaja Hrvatske unutar EU i nude neke praktične implikacije za ekonomske politike usmjerene na ubrzanje konvergencije.\
+\
+U analizi se koristi semi-parametarski Geweke i Porter-Hudak (GPH) procjenitelj, koji je robustan na potencijalne krive specifikacije modela. U izračunima su korišteni kvartalni podatci o BDP-u po stanovniku od prvog kvartala 2000. do četvrtog kvartala 2023. godine. Podaci o BDP-u preuzeti su iz EUROSTAT-ove baze, a podaci o stanovništvu iz baze MMF-a (World Economic Outlook), nakon čega su interpolirani na kvartalnu frekvenciju. Promatrane grupe zemalja su: stare članice EU ( EU15), nove članice EU (NMS8 / NMS12) i zemlje južne Europe (Grčka, Portugal, Španjolska, Italija; SE4).
+
+Sljedeća dva grafikona prikazuju kretanje BDP-a po stanovniku i razlike u dohotku između Hrvatske i definiranih grupa zemalja. Grafikon A prikazuje da Hrvatska bilježi rast BDP-a po stanovniku, ali i dalje zaostaje za prosjekom EU15. U odnosu na NMS8 i NMS12, Hrvatska je do globalne financijske krize bila na sličnoj putanji, no nakon toga nove članice bilježe brži rast, povećavajući jaz. U odnosu na SE4, Hrvatska pokazuje stabilan, ali spor proces približavanja. Grafikon B izravno prikazuje dohodovni jaz. Vidljivo je smanjenje jaza u odnosu na EU15 i SE4 (linije se približavaju nuli), što sugerira konvergenciju. S druge strane, jaz u odnosu na NMS8 i NMS12 se nakon 2008. godine povećao, ukazujući na divergenciju u tom razdoblju. U najnovijem razdoblju vidljiv je ponovni početak procesa približavanja.\
+\
+
+```{r}
+
+#| label: setup-and-data-processing
+#| message: false
+#| warning: false
+
+# 1. UČITAVANJE PAKETA
+library(eurostat)
+library(tidyverse)
+library(zoo)
+library(scales)
+library(tseries)
+library(urca)
+library(fracdiff)
+library(gt)
+library(kableExtra)
+
+# 2. DEFINIRANJE GRUPA ZEMALJA
+nms8 <- c("CZ", "EE", "HU", "LV", "LT", "PL", "SK", "SI")
+nms12 <- c(nms8, "BG", "RO", "CY", "MT")
+se4 <- c("EL", "PT", "ES", "IT")
+eu15 <- c("AT", "BE", "DK", "FI", "FR", "DE", "EL", "IE", "IT", "LU", "NL", "PT", "ES", "SE", "UK")
+croatia <- "HR"
+
+# 3. PREUZIMANJE I OBRADA PODATAKA O BDP-u
+gdp_quarterly_raw <- get_eurostat("namq_10_gdp", time_format = "date")
+gdp_quarterly <- gdp_quarterly_raw %>%
+  filter(na_item == "B1GQ", unit == "CP_MEUR", s_adj == "SCA", TIME_PERIOD >= as.Date("2000-01-01")) %>%
+  select(geo, TIME_PERIOD, values) %>%
+  rename(country = geo, date = TIME_PERIOD, gdp = values)
+
+# 4. PREUZIMANJE I OBRADA PODATAKA O STANOVNIŠTVU
+pop_data_raw <- get_eurostat("demo_r_pjanaggr3", time_format = "date")
+pop_data <- pop_data_raw %>%
+  filter(geo %in% c(nms8, nms12, se4, eu15, croatia), sex == "T", age == "TOTAL", TIME_PERIOD >= as.Date("2000-01-01")) %>%
+  select(geo, TIME_PERIOD, values) %>%
+  rename(country = geo, year = TIME_PERIOD, population = values)
+
+# 5. INTERPOLACIJA PODATAKA O STANOVNIŠTVU NA KVARTALNU RAZINU
+interpolate_population <- function(pop_data) {
+  pop_data %>%
+    group_by(country) %>%
+    complete(year = seq(min(year), max(year), by = "year")) %>%
+    mutate(population = zoo::na.approx(population, na.rm = FALSE)) %>%
+    mutate(year_quarter = as.yearqtr(year) + seq(0, 0.75, by = 0.25)) %>%
+    complete(year_quarter = seq(min(year_quarter), max(year_quarter), by = 0.25)) %>%
+    mutate(population = zoo::na.spline(population, na.rm = FALSE)) %>%
+    select(country, year_quarter, population)
+}
+pop_data_quarterly <- interpolate_population(pop_data)
+
+# 6. SPAJANJE PODATAKA I IZRAČUN BDP-a PO STANOVNIKU
+merge_gdp_pop <- function(gdp_data, pop_data_quarterly) {
+  gdp_data %>%
+    mutate(year_quarter = as.yearqtr(date)) %>%
+    left_join(pop_data_quarterly, by = c("country" = "country", "year_quarter" = "year_quarter")) %>%
+    mutate(gdp_per_capita = gdp * 1e6 / population,
+           log_gdp_per_capita = log(gdp_per_capita)) %>%
+    select(country, date, log_gdp_per_capita)
+}
+
+# 7. KREIRANJE VREMENSKIH SERIJA ZA HRVATSKU I GRUPE ZEMALJA
+gdp_croatia <- gdp_quarterly %>% filter(country == croatia) %>% merge_gdp_pop(pop_data_quarterly)
+gdp_eu15 <- gdp_quarterly %>% filter(country %in% eu15) %>% merge_gdp_pop(pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE)) %>% mutate(group = "EU15")
+gdp_nms8 <- gdp_quarterly %>% filter(country %in% nms8) %>% merge_gdp_pop(pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE)) %>% mutate(group = "NMS8")
+gdp_nms12 <- gdp_quarterly %>% filter(country %in% nms12) %>% merge_gdp_pop(pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE)) %>% mutate(group = "NMS12")
+gdp_se4 <- gdp_quarterly %>% filter(country %in% se4) %>% merge_gdp_pop(pop_data_quarterly) %>% group_by(date) %>% summarise(log_gdp_per_capita = mean(log_gdp_per_capita, na.rm = TRUE)) %>% mutate(group = "SE4")
+
+# 8. IZRAČUN RAZLIKE U DOHOTKU
+calculate_differences <- function(croatia_data, group_data) {
+  croatia_data <- croatia_data %>% select(date, log_gdp_per_capita) %>% rename(log_gdp_per_capita_croatia = log_gdp_per_capita)
+  combined_data <- left_join(group_data, croatia_data, by = "date")
+  combined_data %>%
+    mutate(diff_log_gdp_per_capita = log_gdp_per_capita_croatia - log_gdp_per_capita) %>%
+    select(date, group, diff_log_gdp_per_capita)
+}
+
+diff_croatia_vs_eu15 <- calculate_differences(gdp_croatia, gdp_eu15)
+diff_croatia_vs_nms8 <- calculate_differences(gdp_croatia, gdp_nms8)
+diff_croatia_vs_nms12 <- calculate_differences(gdp_croatia, gdp_nms12)
+diff_croatia_vs_se4 <- calculate_differences(gdp_croatia, gdp_se4)
+
+diff_croatia_vs_groups <- bind_rows(diff_croatia_vs_eu15, diff_croatia_vs_nms8, diff_croatia_vs_nms12, diff_croatia_vs_se4)
+```
+
+```{r}
+
+#| label: visualization
+#| message: false
+#| warning: false
+#| fig-cap: "Kretanje razlika u BDP-u po stanovniku između Hrvatske i analiziranih skupina zemalja"
+#| fig-width: 10
+#| fig-height: 8
+
+# Kombiniranje podataka za vizualizaciju
+all_gdp_data <- bind_rows(
+  gdp_croatia %>% mutate(group = "Hrvatska"),
+  gdp_eu15, gdp_nms8, gdp_nms12, gdp_se4
+)
+
+# Vizualizacija kretanja BDP-a
+plot_gdp <- ggplot(all_gdp_data, aes(x = date, y = exp(log_gdp_per_capita), color = group)) +
+  geom_line(linewidth = 1.1) +
+  scale_y_continuous(labels = scales::dollar_format(prefix = "€")) +
+  labs(
+    title = "A) Kretanje BDP-a po stanovniku (u eurima)",
+    x = "Godina", y = "BDP per capita", color = "Zemlja/Grupa"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Vizualizacija dohodovnog jaza
+plot_diff <- ggplot(diff_croatia_vs_groups, aes(x = date, y = diff_log_gdp_per_capita, color = group)) +
+  geom_line(linewidth = 1.1) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  labs(
+    title = "B) Razlika u (log) BDP-u po stanovniku (Hrvatska - Grupa)",
+    subtitle = "Negativne vrijednosti označavaju da je hrvatski BDP niži od prosjeka grupe",
+    x = "Godina", y = "Logaritamska razlika", color = "Grupa za usporedbu"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Prikaz grafova
+plot_gdp
+plot_diff
+```
+
+Prvo je provoden standardni ADF test kako bi se ispitala stacionarnost dohodovnih razlika. Odbacivanje nulte hipoteze (postojanje jediničnog korijena) ukazuje na konvergenciju. Rezultati ADF testa (Tablica 1) ne omogućuju odbacivanje nulte hipotezu o postojanju jediničnog korijena za većinu specifikacija, što upućuje na to da standardni testovi teško mogu potvrditi konvergenciju. To motivira primjenu sofisticiranije metode frakcijske integracije.\
+
+```{r}
+
+#| label: adf-test
+#| message: false
+#| warning: false
+
+# Uklanjanje NA vrijednosti
+diff_croatia_vs_nms8 <- diff_croatia_vs_nms8 %>% filter(!is.na(diff_log_gdp_per_capita))
+diff_croatia_vs_nms12 <- diff_croatia_vs_nms12 %>% filter(!is.na(diff_log_gdp_per_capita))
+diff_croatia_vs_se4 <- diff_croatia_vs_se4 %>% filter(!is.na(diff_log_gdp_per_capita))
+diff_croatia_vs_eu15 <- diff_croatia_vs_eu15 %>% filter(!is.na(diff_log_gdp_per_capita))
+
+# Funkcija za ADF test
+adf_test_three_specifications <- function(data, group_name) {
+  no_const <- ur.df(data$diff_log_gdp_per_capita, type = "none", selectlags = "AIC")@teststat
+  const <- ur.df(data$diff_log_gdp_per_capita, type = "drift", selectlags = "AIC")@teststat
+  const_trend <- ur.df(data$diff_log_gdp_per_capita, type = "trend", selectlags = "AIC")@teststat
+  
+  tibble(
+    "Grupa" = group_name,
+    "Bez konst./trenda" = no_const,
+    "S konstantom" = const,
+    "S konst. i trendom" = const_trend
+  )
+}
+
+# Provedba testa
+adf_results <- bind_rows(
+  adf_test_three_specifications(diff_croatia_vs_eu15, "RH-EU15"),
+  adf_test_three_specifications(diff_croatia_vs_nms8, "RH-NMS8"),
+  adf_test_three_specifications(diff_croatia_vs_nms12, "RH-NMS12"),
+  adf_test_three_specifications(diff_croatia_vs_se4, "RH-SE4")
+)
+
+# Prikaz tablice
+adf_results %>% 
+  gt(rowname_col = "Grupa") %>%
+  tab_header(title = "Tablica 1: Rezultati ADF testa jediničnog korijena") %>%
+  fmt_number(columns = everything(), decimals = 3) %>%
+  tab_footnote("Kritične vrijednosti (5%): -1.94 (bez konst./trenda), -2.86 (s konst.), -3.41 (s konst. i trendom).")
+```
+
+Rezultati testa frakcijske integracije su prikazani u sljedećoj tablici za različite širine pojasa (bandwidth), što služi kao određena provjera robusnosti.\
+
+```{r}
+#| label: fractional-integration
+#| message: false
+#| warning: false
+
+# Funkcija za procjenu parametra z
+gph_test <- function(data, group_name, bandwidth) {
+  result <- fracdiff::fdGPH(data$diff_log_gdp_per_capita, bandw.exp = bandwidth)
+  d_value <- result$d
+  se <- result$sd.as
+  
+  tibble(
+    group_name = group_name,
+    gph_d = d_value,
+    std_err = se,
+    bandwidth = bandwidth
+  )
+}
+
+# Definiranje širina pojasa
+bandwidths <- c(0.5, 0.6, 0.7, 0.8)
+
+# Provedba testa za sve grupe i širine pojasa
+gph_results <- bind_rows(
+  purrr::map_df(bandwidths, ~ gph_test(diff_croatia_vs_eu15, "RH-EU15", .x)),
+  purrr::map_df(bandwidths, ~ gph_test(diff_croatia_vs_nms8, "RH-NMS8", .x)),
+  purrr::map_df(bandwidths, ~ gph_test(diff_croatia_vs_nms12, "RH-NMS12", .x)),
+  purrr::map_df(bandwidths, ~ gph_test(diff_croatia_vs_se4, "RH-SE4", .x))
+)
+
+# Formatiranje tablice za prikaz
+gph_results_wide <- gph_results %>%
+  select(group_name, gph_d, bandwidth) %>%
+  pivot_wider(names_from = bandwidth, values_from = gph_d, names_prefix = "z (bw = ") %>%
+  mutate(across(where(is.numeric), round, 3))
+
+# Prikaz tablice
+gph_results_wide %>%
+  gt(rowname_col = "group_name") %>%
+  tab_header(title = "Tablica 2: Procjene parametra frakcijske integracije") %>%
+  cols_label(
+    "z (bw = 0.5" = "0.5",
+    "z (bw = 0.6" = "0.6",
+    "z (bw = 0.7" = "0.7",
+    "z (bw = 0.8" = "0.8"
+  ) %>%
+  tab_spanner(label = "Širina pojasa (bandwidth)", columns = starts_with("z (bw = "))
+```
+
+Iz tablice je vidljivo:
+
+-   **RH-EU15**: Procijenjene vrijednosti parametra kreću se oko **0.87**. Ovaj rezultat ukazuje na postojanje **spore, dugoročne konvergencije**. Dohodovni jaz između Hrvatske i starih članica EU se smanjuje, ali vrlo polako.
+
+-   **RH-SE4**: Vrijednosti parametra su oko **0.95** što potvrđuje **konvergenciju** i prema zemljama južne Europe, iako je proces također spor.
+
+-   **RH-NMS8 i RH-NMS12**: Procijenjene vrijednosti su **konzistentno veće od 1**. To pokazuje da je proces nestacionaran i ne vraća se prema prosjeku, što znači da **nema dokaza o dohodovnoj konvergenciji** Hrvatske prema novim zemljama članicama u promatranom razdoblju. Dohodovne razlike su trajne.
+
+Općeniti je zaključak analize postojanje različitih konvergencijskih klubova. Dodatni zaključci su:
+
+1.  **Konvergencija s EU15 i SE4 je potvrđena**: Hrvatska se ekonomski približava prosjeku starih članica EU i zemljama južne Europe. Međutim, taj je proces izrazito spor, što implicira da će biti potreban dug vremenski period za značajnije smanjenje dohodovnog jaza.
+
+2.  **Divergencija s NMS8 i NMS12**: Rezultati jasno pokazuju da Hrvatska ne dijeli konvergencijske obrasce s novim zemljama članicama. Unatoč sličnom institucionalnom putu, strukturne ekonomske razlike uzrokovale su trajna odstupanja u razinama dohotka.
+
+3.  **Implikacije za politike**: Nalazi upućuju na to da se Hrvatska ekonomski integrira u klub zemalja s nižim stopama rasta (južna Europa). Za ubrzanje konvergencije prema razvijenijem europskom prosjeku, potrebne su politike usmjerene na poticanje strukturnih reformi i jačanje konkurentnosti gospodarstva.
+
+Implikacija analize je da institucionalno usklađivanje s EU nije samo po sebi dovoljno za osiguravanje ekonomske konvergencije te naglašava važnost specifičnih nacionalnih politika za poticanje rasta.
