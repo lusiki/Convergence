@@ -89,6 +89,7 @@ These insights have implications for European integration policies. Despite late
 - **Working Paper (Pdf):** [Link](./Paper/Konvergencija.pdf)
 - **Working Paper (Rmd):** [Link](./Paper/Konvergencija.Rmd)
 - **Working Paper (Latex):** [Link](./Paper/Konvergencija.tex)
+- **Executive Summary:** [Link](https://raw.githack.com/lusiki/Convergence/main/Codes/Paper_executive.html)
 - **Codes:** [Codes.R](.Codes/Codes.R)
 - **Data:** Auto-generated from within the `Paper.Rmd` file.
 
